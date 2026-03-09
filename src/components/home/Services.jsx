@@ -103,7 +103,7 @@ const Services = () => {
                 </p>
               </Card>
             </motion.div>
-          ))}
+          ))}   
         </motion.div>
       </div>
     </section>
