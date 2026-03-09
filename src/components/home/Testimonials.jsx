@@ -6,62 +6,35 @@ import { HiStar } from 'react-icons/hi';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-const Testimonials = () => {
-  const testimonials = [
-    {
-      id: 1,
-      name: 'Sarah Johnson',
-      position: 'CEO, TechStart Inc.',
-      content: 'Nebulytix transformed our business with their innovative software solutions. Their team is professional, responsive, and delivered beyond our expectations.',
-      rating: 5,
-      image: 'https://images.unsplash.com/photo-1494790108777-2961285f6ab9?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80',
-    },
-    {
-      id: 2,
-      name: 'Michael Chen',
-      position: 'CTO, Global Finance',
-      content: 'The mobile app they developed for us has received outstanding feedback from our users. Their attention to detail and technical expertise is impressive.',
-      rating: 5,
-      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80',
-    },
-    {
-      id: 3,
-      name: 'Emily Rodriguez',
-      position: 'Product Manager, HealthCare Plus',
-      content: 'Working with Nebulytix was a game-changer for our healthcare platform. They understood our requirements perfectly and delivered a robust solution.',
-      rating: 5,
-      image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80',
-    },
-    {
-      id: 4,
-      name: 'David Kim',
-      position: 'Founder, EduTech Solutions',
-      content: 'Their cloud solutions helped us scale our platform efficiently. The team is knowledgeable, supportive, and always goes the extra mile.',
-      rating: 5,
-      image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80',
-    },
-  ];
+const testimonials = [
+  { id: 1, name: 'Sarah Johnson', position: 'CEO, TechStart Inc.', content: 'Nebulytix transformed our business with their innovative software solutions. Their team is professional, responsive, and delivered beyond our expectations.', rating: 5, image: 'https://images.unsplash.com/photo-1494790108777-2961285f6ab9?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80' },
+  { id: 2, name: 'Michael Chen', position: 'CTO, Global Finance', content: 'The mobile app they developed for us has received outstanding feedback from our users. Their attention to detail and technical expertise is impressive.', rating: 5, image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80' },
+  { id: 3, name: 'Emily Rodriguez', position: 'Product Manager, HealthCare Plus', content: 'Working with Nebulytix was a game-changer for our healthcare platform. They understood our requirements perfectly and delivered a robust solution.', rating: 5, image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80' },
+  { id: 4, name: 'David Kim', position: 'Founder, EduTech Solutions', content: 'Their cloud solutions helped us scale our platform efficiently. The team is knowledgeable, supportive, and always goes the extra mile.', rating: 5, image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80' },
+];
 
+const Testimonials = () => {
   return (
-    <section className="py-20 bg-secondary-50">
-      <div className="container-custom">
-        {/* Section Header */}
+    <section className="py-20 relative overflow-hidden" style={{ background: 'var(--color-bg)' }}>
+      <div className="container-custom relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <h2 className="section-title">What Our Clients Say</h2>
-          <p className="section-subtitle max-w-3xl mx-auto">
-            Don't just take our word for it - hear from some of our satisfied clients
+          <span className="section-eyebrow" style={{ color: '#00c8b0', background: 'rgba(0,200,176,0.07)', border: '1px solid rgba(0,200,176,0.15)' }}>
+            Testimonials
+          </span>
+          <h2 className="section-title">What Our <span className="text-gradient">Clients Say</span></h2>
+          <p className="section-subtitle max-w-lg mx-auto">
+            Don't just take our word for it — hear from some of our satisfied clients.
           </p>
         </motion.div>
 
-        {/* Testimonials Slider */}
         <Swiper
           modules={[Autoplay, Pagination]}
-          spaceBetween={30}
+          spaceBetween={16}
           slidesPerView={1}
           breakpoints={{
             640: { slidesPerView: 1 },
@@ -72,37 +45,37 @@ const Testimonials = () => {
           pagination={{ clickable: true }}
           className="pb-12"
         >
-          {testimonials.map((testimonial) => (
-            <SwiperSlide key={testimonial.id}>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                className="bg-white rounded-2xl shadow-lg p-8 h-full"
+          {testimonials.map((t) => (
+            <SwiperSlide key={t.id} className="h-auto">
+              <div
+                className="rounded-xl p-6 h-full flex flex-col"
+                style={{
+                  background: 'var(--glass-bg)',
+                  border: '1px solid rgba(0,102,255,0.08)',
+                  boxShadow: 'var(--shadow-card)',
+                }}
               >
-                {/* Rating */}
-                <div className="flex mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <HiStar key={i} className="text-yellow-400" size={20} />
+                <div className="flex mb-3 gap-0.5">
+                  {[...Array(t.rating)].map((_, i) => (
+                    <HiStar key={i} style={{ color: '#f59e0b' }} size={14} />
                   ))}
                 </div>
-
-                {/* Content */}
-                <p className="text-secondary-600 mb-6 italic">"{testimonial.content}"</p>
-
-                {/* Author */}
-                <div className="flex items-center">
+                <p className="text-sm mb-5 leading-relaxed flex-1 italic" style={{ color: 'var(--color-text-secondary)' }}>
+                  &ldquo;{t.content}&rdquo;
+                </p>
+                <div className="flex items-center gap-3">
                   <img
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    className="w-12 h-12 rounded-full object-cover mr-4"
+                    src={t.image}
+                    alt={t.name}
+                    className="w-9 h-9 rounded-full object-cover flex-shrink-0"
+                    style={{ border: '1.5px solid rgba(0,102,255,0.2)' }}
                   />
                   <div>
-                    <h4 className="font-semibold text-secondary-900">{testimonial.name}</h4>
-                    <p className="text-sm text-secondary-500">{testimonial.position}</p>
+                    <h4 className="text-sm font-semibold" style={{ color: 'var(--color-text-primary)' }}>{t.name}</h4>
+                    <p className="text-xs" style={{ color: 'var(--color-text-muted)' }}>{t.position}</p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>
