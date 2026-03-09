@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 import Home from './pages/Home'
+import BookingPage from './pages/BookingPage'
 import About from './pages/About'
 import Services from './pages/Services'
 import Projects from './pages/Projects'
@@ -19,6 +20,7 @@ import ProjectsManagement from './pages/admin/ProjectsManagement'
 import JobsManagement from './pages/admin/JobsManagement'
 import Applications from './pages/admin/Applications'
 import UsersManagement from './pages/admin/UsersManagement'
+import MeetingsManagement from './pages/admin/MeetingsManagement'
 import Login from './pages/admin/Login'
 import PrivateRoute from './components/admin/PrivateRoute'
 
@@ -30,6 +32,7 @@ export const router = createBrowserRouter([
   { path: '/careers', element: <Careers /> },
   { path: '/contact', element: <Contact /> },
   { path: '/partners', element: <Partners /> },
+  { path: '/booking', element: <BookingPage /> },
   { path: '/solutions', element: <SolutionsPage /> },
   { path: '/solutions/ai-automation', element: <AIAutomation /> },
   { path: '/solutions/digital-transformation', element: <DigitalTransformation /> },
@@ -50,6 +53,7 @@ export const router = createBrowserRouter([
       { path: 'jobs', element: <JobsManagement /> },
       { path: 'applications', element: <Applications /> },
       { path: 'users', element: <UsersManagement /> },
+      { path: 'meetings', element: <MeetingsManagement /> },
     ],
   },
 ])

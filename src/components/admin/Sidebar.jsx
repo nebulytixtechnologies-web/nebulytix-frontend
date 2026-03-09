@@ -10,6 +10,7 @@ import {
   HiOutlineFolder,
   HiOutlineLogout,
   HiX,
+  HiOutlineCalendar,
 } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/slices/authSlice';
@@ -25,6 +26,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     { path: '/admin/projects', icon: HiOutlineFolder, label: 'Projects' },
     { path: '/admin/jobs', icon: HiOutlineBriefcase, label: 'Jobs' },
     { path: '/admin/applications', icon: HiOutlineDocumentText, label: 'Applications' },
+    { path: '/admin/meetings', icon: HiOutlineCalendar, label: 'Meetings' },
   ];
 
   // Add Users menu only for Admin
@@ -57,9 +59,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
         initial={{ x: -300 }}
         animate={{ x: sidebarOpen ? 0 : -300 }}
         transition={{ type: 'tween' }}
-        className={`fixed top-0 left-0 h-full w-64 bg-white shadow-xl z-30 lg:translate-x-0 ${
-          sidebarOpen ? '' : 'lg:translate-x-0'
-        }`}
+        className={`fixed top-0 left-0 h-full w-64 bg-white shadow-xl z-30 lg:translate-x-0 ${sidebarOpen ? '' : 'lg:translate-x-0'
+          }`}
       >
         <div className="h-full flex flex-col">
           {/* Logo */}
@@ -99,10 +100,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 to={item.path}
                 onClick={() => setSidebarOpen(false)}
                 className={({ isActive }) =>
-                  `flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                    isActive
-                      ? 'bg-primary-50 text-primary-600'
-                      : 'text-secondary-600 hover:bg-secondary-100'
+                  `flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${isActive
+                    ? 'bg-primary-50 text-primary-600'
+                    : 'text-secondary-600 hover:bg-secondary-100'
                   }`
                 }
               >
