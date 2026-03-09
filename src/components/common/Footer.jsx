@@ -1,95 +1,142 @@
 import { Link } from 'react-router-dom'
-import { FaFacebook, FaTwitter, FaLinkedin, FaGithub, FaInstagram } from 'react-icons/fa'
+import { FaLinkedin, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
 
+  const socialLinks = [
+    { icon: FaLinkedin, href: '#', label: 'LinkedIn' },
+    { icon: FaTwitter, href: '#', label: 'Twitter' },
+    { icon: FaInstagram, href: '#', label: 'Instagram' },
+    { icon: FaYoutube, href: '#', label: 'YouTube' },
+  ]
+
   return (
-    <footer className="bg-secondary-900 text-white pt-16 pb-8">
-      <div className="container-custom">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+    <footer className="pt-20 pb-10 relative overflow-hidden" style={{ background: 'var(--color-bg-surface)', borderTop: '1px solid rgba(0, 102, 255, 0.08)' }}>
+      <div className="glow-orb" style={{ width: 600, height: 400, bottom: '-20%', left: '50%', transform: 'translateX(-50%)', background: 'radial-gradient(ellipse, rgba(0, 102, 255, 0.05) 0%, transparent 70%)' }} />
+
+      <div className="container-custom relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-14">
+
           {/* Company Info */}
-          <div>
-            <h3 className="text-2xl font-bold mb-4">
-              <span className="text-primary-400">Nebulytix</span> Technologies
-            </h3>
-            <p className="text-secondary-400 mb-4">
-              Transforming ideas into innovative software solutions. We build the future, one line of code at a time.
+          <div className="lg:col-span-2">
+            <div className="mb-4">
+              <Link to="/" className="logo">
+                <img src="/src/assets/logo01.png" alt="Nebulytix Technologies"
+                  style={{ filter: 'drop-shadow(0 0 10px rgba(26, 95, 255, 0.55))' }} />
+                <span className="logo-text">Nebulytix Technologies</span>
+              </Link>
+            </div>
+            <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--color-text-muted)' }}>
+              Building AI-powered digital ecosystems for enterprises and partners. Accelerating digital transformation through AI automation, intelligent platforms, and strategic partner ecosystems.
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-secondary-400 hover:text-primary-400 transition-colors">
-                <FaFacebook size={20} />
-              </a>
-              <a href="#" className="text-secondary-400 hover:text-primary-400 transition-colors">
-                <FaTwitter size={20} />
-              </a>
-              <a href="#" className="text-secondary-400 hover:text-primary-400 transition-colors">
-                <FaLinkedin size={20} />
-              </a>
-              <a href="#" className="text-secondary-400 hover:text-primary-400 transition-colors">
-                <FaGithub size={20} />
-              </a>
-              <a href="#" className="text-secondary-400 hover:text-primary-400 transition-colors">
-                <FaInstagram size={20} />
-              </a>
+            <div className="flex space-x-3">
+              {socialLinks.map(({ icon: Icon, href, label }) => (
+                <a key={label} href={href} aria-label={label}
+                  className="w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 hover:-translate-y-1"
+                  style={{ background: 'rgba(0,102,255,0.05)', border: '1px solid rgba(0,102,255,0.1)', color: 'var(--color-text-muted)' }}
+                  onMouseEnter={e => { e.currentTarget.style.color = 'var(--color-primary)'; e.currentTarget.style.borderColor = 'var(--color-primary)'; e.currentTarget.style.boxShadow = '0 0 15px rgba(0,102,255,0.2)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.color = 'var(--color-text-muted)'; e.currentTarget.style.borderColor = 'rgba(0,102,255,0.1)'; e.currentTarget.style.boxShadow = 'none'; }}
+                >
+                  <Icon size={14} />
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Company */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2">
-              {['About', 'Services', 'Projects', 'Careers', 'Contact'].map((item) => (
-                <li key={item}>
-                  <Link
-                    to={`/${item.toLowerCase()}`}
-                    className="text-secondary-400 hover:text-primary-400 transition-colors"
-                  >
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Services */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Our Services</h4>
-            <ul className="space-y-2">
+            <h4 className="text-sm font-bold mb-5" style={{ color: 'var(--color-text-primary)' }}>Company</h4>
+            <ul className="space-y-3">
               {[
-                'Web Development',
-                'Mobile Apps',
-                'Cloud Solutions',
-                'AI & Machine Learning',
-                'DevOps Consulting',
-              ].map((service) => (
-                <li key={service}>
-                  <Link
-                    to="/services"
-                    className="text-secondary-400 hover:text-primary-400 transition-colors"
+                { label: 'About Us', path: '/about' },
+                { label: 'Partners', path: '/partners' },
+                { label: 'Careers', path: '/careers' },
+                { label: 'Insights', path: '/insights' },
+              ].map(({ label, path }) => (
+                <li key={label}>
+                  <Link to={path}
+                    className="text-sm transition-all hover:translate-x-1 inline-block"
+                    style={{ color: 'var(--color-text-muted)' }}
+                    onMouseEnter={e => e.currentTarget.style.color = 'var(--color-accent)'}
+                    onMouseLeave={e => e.currentTarget.style.color = 'var(--color-text-muted)'}
                   >
-                    {service}
+                    → {label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact Info */}
+          {/* Solutions */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
-            <ul className="space-y-2 text-secondary-400">
-              <li>123 Tech Street</li>
-              <li>Silicon Valley, CA 94025</li>
-              <li>+1 (555) 123-4567</li>
-              <li>info@nebulytix.com</li>
+            <h4 className="text-sm font-bold mb-5" style={{ color: 'var(--color-text-primary)' }}>Solutions</h4>
+            <ul className="space-y-3">
+              {[
+                { label: 'AI Automation Platform', path: '/solutions/ai-automation' },
+                { label: 'Digital Transformation', path: '/solutions/digital-transformation' },
+                { label: 'AI Upskilling Programs', path: '/solutions/ai-upskilling' },
+                { label: 'All Solutions', path: '/solutions' },
+              ].map(({ label, path }) => (
+                <li key={label}>
+                  <Link to={path}
+                    className="text-sm transition-all hover:translate-x-1 inline-block"
+                    style={{ color: 'var(--color-text-muted)' }}
+                    onMouseEnter={e => e.currentTarget.style.color = 'var(--color-accent)'}
+                    onMouseLeave={e => e.currentTarget.style.color = 'var(--color-text-muted)'}
+                  >
+                    → {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h4 className="text-sm font-bold mb-5" style={{ color: 'var(--color-text-primary)' }}>Contact</h4>
+            <ul className="space-y-3 text-sm" style={{ color: 'var(--color-text-muted)' }}>
+              <li>
+                <a href="mailto:info@nebulytix.com"
+                  style={{ color: 'var(--color-text-muted)' }}
+                  onMouseEnter={e => e.currentTarget.style.color = 'var(--color-accent)'}
+                  onMouseLeave={e => e.currentTarget.style.color = 'var(--color-text-muted)'}
+                >
+                  ✉️ info@nebulytix.com
+                </a>
+              </li>
+              <li>
+                <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer"
+                  style={{ color: 'var(--color-text-muted)' }}
+                  onMouseEnter={e => e.currentTarget.style.color = 'var(--color-accent)'}
+                  onMouseLeave={e => e.currentTarget.style.color = 'var(--color-text-muted)'}
+                >
+                  💬 WhatsApp Us
+                </a>
+              </li>
+              <li>
+                <Link to="/contact"
+                  className="text-sm"
+                  style={{ color: 'var(--color-text-muted)' }}
+                  onMouseEnter={e => e.currentTarget.style.color = 'var(--color-accent)'}
+                  onMouseLeave={e => e.currentTarget.style.color = 'var(--color-text-muted)'}
+                >
+                  📅 Book a Consultation
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-secondary-800 pt-8 text-center text-secondary-400">
-          <p>&copy; {currentYear} Nebulytix Technologies. All rights reserved.</p>
+        {/* Bottom bar */}
+        <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium"
+          style={{ borderTop: '1px solid rgba(0, 102, 255, 0.08)', color: 'var(--color-text-muted)' }}>
+          <p>© {currentYear} Nebulytix Technologies. All rights reserved.</p>
+          <div className="flex gap-8">
+            <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
+            <Link to="/industries" className="hover:text-primary transition-colors">Industries</Link>
+          </div>
         </div>
       </div>
     </footer>

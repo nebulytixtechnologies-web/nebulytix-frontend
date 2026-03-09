@@ -1,0 +1,111 @@
+/**
+ * ╔══════════════════════════════════════════════════════════════╗
+ * ║             NEBULYTIX — CENTRALIZED THEME TOKENS            ║
+ * ║  Change values here once → reflects everywhere on the site  ║
+ * ╚══════════════════════════════════════════════════════════════╝
+ *
+ * Light Theme Palette (Pristine White Mode):
+ *   - Pure White backgrounds (#ffffff)
+ *   - Electric Blue primary (#0066ff)
+ *   - Galaxy Navy headings/text (#05183a)
+ *   - Cloud Grey secondary text (#64748b)
+ */
+
+:root {
+    /* ── Brand Core ─────────────────────────────────────────── */
+    --color-primary: #0066ff;
+    /* Electric logo blue                 */
+    --color-primary-light: #3385ff;
+    --color-primary-dark: #004ecc;
+
+    --color-accent: #00c8ff;
+    /* Neon cyan (arc highlights)         */
+    --color-accent-dark: #0099cc;
+
+    --color-glow: #1a5fff;
+    /* Blue constellation accent          */
+    --color-glow-dark: #004ecc;
+
+    --color-spark: #b8e2ff;
+    /* Soft blue highlight                */
+
+    /* ── Backgrounds (Light Mode) ──────────────────────────── */
+    --color-bg: #ffffff;
+    /* Pristine White                     */
+    --color-bg-surface: #f8fafc;
+    /* Near-white surface                 */
+    --color-bg-card: #ffffff;
+    /* White cards                        */
+    --color-bg-card-hover: #f1f5f9;
+    /* Light grey-blue hover              */
+    --color-bg-border: rgba(0, 102, 255, 0.15);
+    /* Soft blue border                   */
+
+    /* ── Text (Light Mode) ──────────────────────────────────── */
+    --color-text-primary: #05183a;
+    /* Galaxy Navy (from wordmark)        */
+    --color-text-secondary: #475569;
+    /* Muted Slate                        */
+    --color-text-muted: #94a3b8;
+    /* Light Slate                        */
+
+    /* ── Gradients ──────────────────────────────────────────── */
+    --gradient-primary: linear-gradient(135deg, #0066ff 0%, #3385ff 50%, #00c8ff 100%);
+    --gradient-hero: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+    --gradient-card: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(241, 245, 249, 0.5) 100%);
+    --gradient-glow: linear-gradient(135deg, #0066ff, #00c8ff);
+    --gradient-btn: linear-gradient(135deg, #1a5fff 0%, #4488ff 100%);
+    --gradient-btn-hover: linear-gradient(135deg, #004ecc 0%, #0066ff 100%);
+    --gradient-text: linear-gradient(135deg, #05183a 0%, #0066ff 100%);
+
+    /* ── Glow / Shadows (Softened for Light Mode) ────────────── */
+    --shadow-glow-primary: 0 10px 40px rgba(0, 102, 255, 0.15);
+    --shadow-glow-cyan: 0 10px 40px rgba(0, 200, 255, 0.15);
+    --shadow-glow-purple: 0 10px 40px rgba(107, 47, 255, 0.15);
+    --shadow-card: 0 4px 20px rgba(5, 24, 58, 0.08);
+
+    /* ── Border Radius ──────────────────────────────────────── */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+
+    /* ── Glass Effect (Light Mode Adjustments) ───────────────── */
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --glass-border: rgba(0, 102, 255, 0.1);
+    --glass-blur: 20px;
+
+    /* ── Typography ─────────────────────────────────────────── */
+    --font-sans: 'Inter', system-ui, sans-serif;
+    --font-heading: 'Inter', system-ui, sans-serif;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.logo img {
+    height: 44px;
+    width: auto;
+    transition: transform 0.3s ease;
+}
+
+.navbar-logo img {
+    height: 44px;
+    width: auto;
+    filter: drop-shadow(0 2px 8px rgba(0, 102, 255, 0.12));
+}
+
+.logo-text {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: -0.3px;
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
