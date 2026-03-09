@@ -1,12 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const Card = ({ 
-  children, 
+const Card = ({
+  children,
   className = '',
   hover = true,
   padding = 'p-6',
-  ...props 
+  ...props
 }) => {
   return (
     <motion.div
@@ -14,8 +14,15 @@ const Card = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      whileHover={hover ? { y: -5, transition: { duration: 0.2 } } : {}}
-      className={`bg-white rounded-xl shadow-lg ${hover ? 'hover:shadow-xl' : ''} ${padding} ${className}`}
+      whileHover={hover ? { y: -6, transition: { duration: 0.2 } } : {}}
+      className={`rounded-2xl transition-all duration-300 ${padding} ${className}`}
+      style={{
+        background: 'var(--glass-bg)',
+        border: '1px solid var(--glass-border)',
+        backdropFilter: 'blur(var(--glass-blur))',
+        WebkitBackdropFilter: 'blur(var(--glass-blur))',
+        boxShadow: 'var(--shadow-card)',
+      }}
       {...props}
     >
       {children}

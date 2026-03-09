@@ -1,113 +1,99 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  HiOutlineCode, 
-  HiOutlineDeviceMobile, 
-  HiOutlineCloud, 
+import { Link } from 'react-router-dom';
+import {
+  HiOutlineAcademicCap,
   HiOutlineChip,
-  HiOutlineChartBar,
-  HiOutlineShieldCheck 
+  HiOutlineGlobeAlt,
+  HiOutlineUserGroup,
 } from 'react-icons/hi';
-import Card from '../common/Card';
 
-const Services = () => {
-  const services = [
-    {
-      icon: HiOutlineCode,
-      title: 'Web Development',
-      description: 'Custom web applications built with modern technologies like React, Vue, and Spring Boot.',
-      color: 'blue',
-    },
-    {
-      icon: HiOutlineDeviceMobile,
-      title: 'Mobile Apps',
-      description: 'Native and cross-platform mobile applications for iOS and Android.',
-      color: 'green',
-    },
-    {
-      icon: HiOutlineCloud,
-      title: 'Cloud Solutions',
-      description: 'Scalable cloud infrastructure on AWS, Azure, and Google Cloud.',
-      color: 'purple',
-    },
-    {
-      icon: HiOutlineChip,
-      title: 'AI & Machine Learning',
-      description: 'Intelligent solutions powered by cutting-edge AI and ML algorithms.',
-      color: 'orange',
-    },
-    {
-      icon: HiOutlineChartBar,
-      title: 'DevOps Consulting',
-      description: 'Streamline your development and deployment processes with DevOps practices.',
-      color: 'pink',
-    },
-    {
-      icon: HiOutlineShieldCheck,
-      title: 'Cybersecurity',
-      description: 'Protect your applications with advanced security measures and best practices.',
-      color: 'red',
-    },
-  ];
+const solutions = [
+  {
+    icon: HiOutlineAcademicCap,
+    title: 'AI Upskilling',
+    description: 'Training enterprises and professionals in next-generation AI capabilities — from foundations to advanced certification.',
+    path: '/solutions/ai-upskilling',
+    color: 'var(--color-primary)',
+  },
+  {
+    icon: HiOutlineChip,
+    title: 'AI Automation Services',
+    description: 'Implementing intelligent automation across business processes — workflows, agents, and decision systems.',
+    path: '/solutions/ai-automation',
+    color: 'var(--color-accent)',
+  },
+  {
+    icon: HiOutlineGlobeAlt,
+    title: 'Digital Transformation Consulting',
+    description: 'Helping organizations redesign operations using modern technology platforms and cloud-native architectures.',
+    path: '/solutions/digital-transformation',
+    color: 'var(--color-text-primary)',
+  },
+  {
+    icon: HiOutlineUserGroup,
+    title: 'Partner Product Promotion',
+    description: 'Promoting partner solutions through the Nebulytix enterprise ecosystem — joint selling, integrations, and co-innovation.',
+    path: '/partners',
+    color: 'var(--color-primary)',
+  },
+];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
-  };
-
+const Solutions = () => {
   return (
-    <section className="py-20 bg-secondary-50">
-      <div className="container-custom">
-        {/* Section Header */}
+    <section className="py-20 relative overflow-hidden" style={{ background: 'var(--color-bg)' }}>
+      <div className="container-custom relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <h2 className="section-title">Our Services</h2>
-          <p className="section-subtitle max-w-3xl mx-auto">
-            We offer comprehensive software solutions tailored to your business needs
+          <span className="section-eyebrow" style={{ color: 'var(--color-accent)', background: 'rgba(0,200,255,0.07)', border: '1px solid rgba(0,200,255,0.15)' }}>
+            Solutions
+          </span>
+          <h2 className="section-title">Solutions <span className="text-gradient">Snapshot</span></h2>
+          <p className="section-subtitle max-w-lg mx-auto">
+            Four core solution areas driving measurable transformation for enterprises and partners worldwide.
           </p>
         </motion.div>
 
-        {/* Services Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          {services.map((service, index) => (
-            <motion.div key={index} variants={itemVariants}>
-              <Card className="text-center group">
-                <div className={`inline-flex p-4 rounded-2xl bg-${service.color}-100 text-${service.color}-600 mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                  <service.icon size={32} />
-                </div>
-                <h3 className="text-xl font-semibold text-secondary-900 mb-3">
-                  {service.title}
-                </h3>
-                <p className="text-secondary-600">
-                  {service.description}
-                </p>
-              </Card>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {solutions.map((sol, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.06 }}
+              className="card group hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 flex flex-col gap-4"
+              style={{ border: '1px solid rgba(0,102,255,0.07)' }}
+            >
+              <div
+                className="w-9 h-9 rounded-lg flex items-center justify-center mb-1 transition-all duration-200 group-hover:scale-110"
+                style={{ background: `${sol.color}10`, color: sol.color }}
+              >
+                <sol.icon size={18} />
+              </div>
+              <h3 className="text-sm font-semibold" style={{ color: 'var(--color-text-primary)' }}>
+                {sol.title}
+              </h3>
+              <p className="text-xs leading-relaxed flex-1" style={{ color: 'var(--color-text-secondary)' }}>
+                {sol.description}
+              </p>
+              <Link
+                to={sol.path}
+                className="text-xs font-semibold mt-auto inline-flex items-center gap-1 transition-colors duration-200"
+                style={{ color: sol.color }}
+              >
+                Learn More →
+              </Link>
             </motion.div>
-          ))}   
-        </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
 };
 
-export default Services;
+export default Solutions;
