@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { FaLinkedin, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa'
+import WhatsAppFloat from './WhatsAppFloat'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
@@ -21,10 +22,10 @@ const Footer = () => {
           {/* Company Info */}
           <div className="lg:col-span-2">
             <div className="mb-4">
-              <Link to="/" className="logo">
-                <img src="/src/assets/logo01.png" alt="Nebulytix Technologies"
+              <Link to="/" className="logo scale-90 md:scale-100 origin-left shrink-0 mr-4 xl:mr-8 flex items-center">
+                <img src="/src/assets/logo.png" alt="Nebulytix Technologies" className="-my-4 shrink-0"
                   style={{ filter: 'drop-shadow(0 0 10px rgba(26, 95, 255, 0.55))' }} />
-                <span className="logo-text">Nebulytix Technologies</span>
+                <span className="logo-text mt-2">NEBULYTIX</span>
               </Link>
             </div>
             <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--color-text-muted)' }}>
@@ -139,6 +140,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
+      <WhatsAppFloat />
     </footer>
   )
 }

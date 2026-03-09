@@ -4,57 +4,79 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
-import { HiArrowRight } from 'react-icons/hi';
+import {
+    HiArrowRight,
+    HiOutlineHeart,
+    HiOutlineLibrary,
+    HiOutlineCurrencyDollar,
+    HiOutlineShoppingCart,
+    HiOutlineCheckCircle
+} from 'react-icons/hi';
 
+/* ─────────────────────────────────────────────────────────────
+   DATA
+───────────────────────────────────────────────────────────── */
 const industries = [
     {
+        id: 'healthcare',
         emoji: '🏥',
+        icon: HiOutlineHeart,
         title: 'Healthcare',
         subtitle: 'Intelligent Health Systems',
-        desc: 'AI-powered clinical workflows, intelligent patient engagement, predictive diagnostics, and healthcare data interoperability platforms.',
-        useCases: ['Clinical AI & Diagnostics', 'Patient Journey Automation', 'Healthcare Data Integration', 'Regulatory Compliance Automation'],
-        color: 'var(--color-primary)',
+        desc: 'We partner with healthcare providers to build AI-powered clinical workflows, intelligent patient engagement systems, predictive diagnostics, and interoperable data platforms that improve outcomes while reducing operational overhead.',
+        outcomes: ['30% reduction in administrative overhead', 'Improved diagnostic accuracy', 'Seamless EHR integration'],
+        useCases: [
+            { name: 'Patient Journey Automation', desc: 'End-to-end automation of scheduling, intake, and post-care follow-up.' },
+            { name: 'Clinical Note Processing', desc: 'AI agents that transcribe and structure clinical notes directly into the EHR.' },
+            { name: 'Predictive Resource Planning', desc: 'Forecasting patient admission rates to optimize staffing and facility usage.' }
+        ],
+        color: 'var(--color-primary)', // Blue
     },
     {
+        id: 'finance',
         emoji: '🏦',
+        icon: HiOutlineCurrencyDollar,
         title: 'Financial Services',
         subtitle: 'Smart Finance Operations',
-        desc: 'Risk intelligence, fraud detection, automated compliance, and AI-driven customer advisory services for modern financial institutions.',
-        useCases: ['AI-Powered Risk Management', 'Fraud Detection Systems', 'Automated AML & Compliance', 'Intelligent Customer Advisory'],
-        color: 'var(--color-accent)',
+        desc: 'For modern financial institutions, we deploy risk intelligence, real-time fraud detection architectures, automated compliance reporting suites, and AI-driven hyper-personalized customer advisory services.',
+        outcomes: ['99% accuracy in KYC automation', 'Millisecond fraud detection', 'Reduced compliance risk'],
+        useCases: [
+            { name: 'Automated Loan Origination', desc: 'AI agents that extract application data, verify documents, and score credit risk instantly.' },
+            { name: 'AML & Fraud Detection', desc: 'Machine learning models identifying anomalous transaction patterns across global networks.' },
+            { name: 'Intelligent Client Advisory', desc: 'Robo-advisors generating contextual financial insights based on real-time market data.' }
+        ],
+        color: 'var(--color-accent)', // Cyan/Teal
     },
     {
+        id: 'government',
         emoji: '🏛️',
+        icon: HiOutlineLibrary,
         title: 'Government & Public Sector',
-        subtitle: 'Digital Government Solutions',
-        desc: 'Modern e-government platforms, intelligent citizen services, data-driven policy analytics, and secure digital infrastructure for public organizations.',
-        useCases: ['Citizen Service Automation', 'Policy Analytics Platforms', 'Secure Government Data Systems', 'Digital Identity Management'],
-        color: 'var(--color-text-primary)',
+        subtitle: 'Digital Citizen Services',
+        desc: 'We modernize legacy infrastructure into agile e-government platforms. Our solutions deliver intelligent citizen services, secure digital identity management, and advanced data-driven policy analytics.',
+        outcomes: ['3x faster public service delivery', 'Data sovereignty & peak security', 'Unified digital citizen profiles'],
+        useCases: [
+            { name: 'Citizen Service Portals', desc: 'Automated 24/7 AI agents assisting citizens with applications, licenses, and permits.' },
+            { name: 'Policy Impact Analytics', desc: 'Simulating the economic and social impacts of policy decisions using demographic datasets.' },
+            { name: 'Smart Infrastructure', desc: 'IoT and AI integration for predictive maintenance of public assets and city planning.' }
+        ],
+        color: 'var(--color-text-primary)', // Dark Navy
     },
     {
-        emoji: '🎓',
-        title: 'Education',
-        subtitle: 'AI-Enhanced Learning',
-        desc: 'Personalized learning platforms, AI tutoring systems, institutional data analytics, and digital campus transformation for education providers.',
-        useCases: ['Adaptive Learning Platforms', 'Student Success Analytics', 'Administrative Process Automation', 'Digital Campus Infrastructure'],
-        color: 'var(--color-primary)',
-    },
-    {
-        emoji: '🛒',
-        title: 'Retail & Commerce',
-        subtitle: 'Intelligent Commerce Platforms',
-        desc: 'AI-driven demand forecasting, personalized commerce experiences, supply chain intelligence, and omnichannel customer engagement.',
-        useCases: ['Demand Forecasting AI', 'Personalization Engines', 'Omnichannel Commerce', 'Inventory Optimization'],
-        color: 'var(--color-accent)',
-    },
-    {
-        emoji: '⚙️',
-        title: 'Enterprise Technology',
-        subtitle: 'Enterprise AI Transformation',
-        desc: 'Full-scale enterprise AI adoption, intelligent platform modernization, and AI-driven operational excellence for technology organizations.',
-        useCases: ['Platform Modernization', 'AI Operations (AIOps)', 'Enterprise Data Platform', 'Developer AI Tooling'],
-        color: 'var(--color-text-primary)',
-    },
+        id: 'retail',
+        emoji: '🛍️',
+        icon: HiOutlineShoppingCart,
+        title: 'Retail & Enterprise',
+        subtitle: 'Intelligent Commerce & Enterprise Ops',
+        desc: 'Unifying storefronts and enterprise back-offices with AI. From demand forecasting and supply chain intelligence to omnichannel customer engagement and deep enterprise platform modernization.',
+        outcomes: ['40% improvement in demand forecasting', 'Automated supply chain routing', 'Boosted customer lifetime value'],
+        useCases: [
+            { name: 'Dynamic Inventory Optimization', desc: 'Predictive models preventing out-of-stocks while minimizing warehousing capital.' },
+            { name: 'Enterprise Workflow Automation', desc: 'Intelligent routing of internal approvals, IT ticketing, and HR operations.' },
+            { name: 'Hyper-Personalized Commerce', desc: 'AI engines delivering dynamic pricing, tailored recommendations, and targeted promotions.' }
+        ],
+        color: 'var(--color-primary)', // Blue
+    }
 ];
 
 const Industries = () => {
@@ -62,52 +84,92 @@ const Industries = () => {
         <>
             <Helmet>
                 <title>Industries We Serve - Nebulytix Technologies</title>
-                <meta name="description" content="Nebulytix serves Healthcare, Financial Services, Government, Education, Retail and Enterprise Technology with tailored AI automation and digital transformation solutions." />
+                <meta name="description" content="Nebulytix delivers tailored AI and digital transformation solutions for Healthcare, Financial Services, Government & Public Sector, and Retail & Enterprise." />
             </Helmet>
             <Navbar />
             <main>
-                {/* Hero */}
+                {/* ── HERO ──────────────────────────────────────────── */}
                 <section className="pt-36 pb-24 relative overflow-hidden" style={{ background: 'var(--color-bg)' }}>
-                    <div className="glow-orb" style={{ width: 700, height: 600, top: '-20%', left: '50%', transform: 'translateX(-50%)', background: 'radial-gradient(circle, rgba(26,95,255,0.1) 0%, transparent 70%)' }} />
+                    <div className="glow-orb" style={{ width: 800, height: 700, top: '-25%', left: '50%', transform: 'translateX(-50%)', background: 'radial-gradient(circle, rgba(0,102,255,0.09) 0%, transparent 70%)' }} />
                     <div className="container-custom relative z-10 text-center">
                         <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }}>
-                            <span className="section-eyebrow" style={{ color: 'var(--color-primary)', background: 'rgba(0,102,255,0.06)', border: '1px solid rgba(0,102,255,0.12)' }}>Industries</span>
+                            <span className="section-eyebrow" style={{ color: 'var(--color-primary)', background: 'rgba(0,102,255,0.06)', border: '1px solid rgba(0,102,255,0.12)' }}>
+                                Target Markets
+                            </span>
                         </motion.div>
-                        <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+                        <motion.h1
+                            initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
                             className="text-4xl md:text-5xl lg:text-6xl font-black mt-4 mb-6 leading-tight"
-                            style={{ color: 'var(--color-text-primary)', letterSpacing: '-0.03em' }}>
+                            style={{ color: 'var(--color-text-primary)', letterSpacing: '-0.03em' }}
+                        >
                             Industries We <span className="text-gradient">Serve</span>
                         </motion.h1>
-                        <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-                            className="text-lg max-w-2xl mx-auto mb-10" style={{ color: 'var(--color-text-secondary)', lineHeight: 1.7 }}>
-                            Deep domain expertise combined with cutting-edge AI capabilities — delivering industry-specific transformation that creates lasting competitive advantage.
+                        <motion.p
+                            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
+                            className="text-lg max-w-2xl mx-auto mb-10"
+                            style={{ color: 'var(--color-text-secondary)', lineHeight: 1.75 }}
+                        >
+                            Deep domain expertise crossed with cutting-edge AI automation capabilities. We architect industry-specific transformation strategies that turn technology into your defining competitive advantage.
                         </motion.p>
                     </div>
                 </section>
 
-                {/* Industries Grid */}
-                <section className="py-20" style={{ background: 'var(--color-bg-surface)' }}>
+                {/* ── INDUSTRIES DETAILED SECTIONS ────────────────── */}
+                <section className="py-12" style={{ background: 'var(--color-bg-surface)' }}>
                     <div className="container-custom">
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="flex flex-col gap-16 md:gap-24">
                             {industries.map((ind, i) => (
-                                <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}
-                                    className="card flex flex-col gap-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-300" style={{ borderTop: `3px solid ${ind.color}`, border: '1px solid rgba(0,102,255,0.08)' }}>
-                                    <div>
-                                        <span className="text-3xl mb-3 block">{ind.emoji}</span>
-                                        <span className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded" style={{ background: `${ind.color}10`, color: ind.color }}>{ind.subtitle}</span>
-                                        <h2 className="text-lg font-bold mt-2 mb-2" style={{ color: 'var(--color-text-primary)' }}>{ind.title}</h2>
-                                        <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>{ind.desc}</p>
+                                <motion.div
+                                    key={ind.id}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, margin: "-100px" }}
+                                    transition={{ duration: 0.5 }}
+                                    className={`flex flex-col ${i % 2 !== 0 ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-10 lg:gap-16 items-center`}
+                                >
+                                    {/* Info Side */}
+                                    <div className="flex-1 w-full">
+                                        <div className="flex items-center gap-3 mb-4">
+                                            <span className="text-4xl">{ind.emoji}</span>
+                                            <span className="font-bold uppercase tracking-widest text-xs px-2.5 py-1 rounded"
+                                                style={{ background: `${ind.color}15`, color: ind.color }}>
+                                                {ind.subtitle}
+                                            </span>
+                                        </div>
+                                        <h2 className="text-3xl md:text-4xl font-black mb-5" style={{ color: 'var(--color-text-primary)' }}>
+                                            {ind.title}
+                                        </h2>
+                                        <p className="text-base leading-relaxed mb-8" style={{ color: 'var(--color-text-secondary)' }}>
+                                            {ind.desc}
+                                        </p>
+
+                                        <div className="p-6 rounded-2xl mb-8" style={{ background: '#ffffff', border: '1px solid rgba(0,102,255,0.08)', boxShadow: '0 4px 20px rgba(0,102,255,0.05)' }}>
+                                            <h4 className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: ind.color }}>Measurable Outcomes</h4>
+                                            <div className="space-y-3">
+                                                {ind.outcomes.map((outcome, oi) => (
+                                                    <div key={oi} className="flex items-center gap-3">
+                                                        <HiOutlineCheckCircle className="text-lg shrink-0" style={{ color: ind.color }} />
+                                                        <span className="text-sm font-semibold" style={{ color: 'var(--color-text-primary)' }}>{outcome}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        <Link to="/contact" className="btn-primary px-8 py-3 text-sm inline-flex items-center gap-2">
+                                            Discuss {ind.title} Solutions <HiArrowRight />
+                                        </Link>
                                     </div>
-                                    <div className="mt-auto">
-                                        <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: ind.color }}>Key Use Cases</p>
-                                        <ul className="space-y-1.5">
-                                            {ind.useCases.map((uc, ui) => (
-                                                <li key={ui} className="flex items-center gap-2 text-xs" style={{ color: 'var(--color-text-secondary)' }}>
-                                                    <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: ind.color }} />
-                                                    {uc}
-                                                </li>
-                                            ))}
-                                        </ul>
+
+                                    {/* Use Cases Cards Side */}
+                                    <div className="flex-1 w-full grid gap-4">
+                                        <h4 className="text-[10px] font-bold uppercase tracking-widest mb-1 ml-2" style={{ color: 'var(--color-text-muted)' }}>Core Applied Use Cases</h4>
+                                        {ind.useCases.map((uc, ui) => (
+                                            <div key={ui} className="p-5 rounded-2xl hover:-translate-y-1 transition-transform duration-300"
+                                                style={{ background: '#ffffff', border: `1px solid ${ind.color}20`, borderLeft: `4px solid ${ind.color}`, boxShadow: '0 4px 16px rgba(0,0,0,0.02)' }}>
+                                                <h3 className="text-sm font-bold mb-2" style={{ color: 'var(--color-text-primary)' }}>{uc.name}</h3>
+                                                <p className="text-xs leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>{uc.desc}</p>
+                                            </div>
+                                        ))}
                                     </div>
                                 </motion.div>
                             ))}
@@ -115,20 +177,25 @@ const Industries = () => {
                     </div>
                 </section>
 
-                {/* CTA */}
+                {/* ── CTA ───────────────────────────────────────────── */}
                 <section className="py-20 relative overflow-hidden" style={{ background: 'var(--color-bg)' }}>
-                    <div className="glow-orb" style={{ width: 600, height: 500, top: '50%', left: '50%', transform: 'translate(-50%, -50%)', background: 'radial-gradient(circle, rgba(0,102,255,0.07) 0%, transparent 70%)' }} />
+                    <div className="glow-orb" style={{ width: 600, height: 500, top: '50%', left: '50%', transform: 'translate(-50%,-50%)', background: 'radial-gradient(circle, rgba(0,102,255,0.06) 0%, transparent 70%)' }} />
                     <div className="container-custom relative z-10 text-center max-w-3xl mx-auto">
                         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
                             <h2 className="text-3xl md:text-4xl font-black mb-5" style={{ color: 'var(--color-text-primary)' }}>
                                 Don't See Your Industry?
                             </h2>
                             <p className="mb-8 text-base" style={{ color: 'var(--color-text-secondary)' }}>
-                                Our AI and digital transformation capabilities are adaptable across sectors. Let's discuss how Nebulytix can solve your unique challenges.
+                                Our core platforms — AI Automation and Digital Transformation — are highly composable and adaptable across multiple sectors.
                             </p>
-                            <Link to="/contact" className="btn-primary px-10 py-4 text-sm inline-flex items-center gap-2">
-                                Talk to Our Industry Experts <HiArrowRight />
-                            </Link>
+                            <div className="flex flex-wrap justify-center gap-4">
+                                <Link to="/#cta-section" className="btn-primary px-10 py-3 text-sm inline-flex items-center gap-2">
+                                    Talk to Our Solutions Architects <HiArrowRight />
+                                </Link>
+                                <Link to="/solutions" className="btn-secondary px-8 py-3 text-sm">
+                                    Explore Core Solutions
+                                </Link>
+                            </div>
                         </motion.div>
                     </div>
                 </section>

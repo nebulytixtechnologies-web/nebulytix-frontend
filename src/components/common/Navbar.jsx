@@ -58,7 +58,7 @@ const Navbar = ({ onBookingOpen }) => {
     },
     { name: 'Industries', path: '/industries' },
     { name: 'Insights & Thought Leadership', path: '/insights' },
-    { name: 'Contact Consultation', path: '/contact' },
+    { name: 'Contact & Consultation', path: '/contact' },
   ]
 
   const dropdownVariants = {
@@ -85,9 +85,9 @@ const Navbar = ({ onBookingOpen }) => {
         <div className="flex justify-between items-center">
 
           {/* Logo */}
-          <Link to="/" className="logo navbar-logo scale-90 md:scale-100 origin-left">
-            <img src="/src/assets/logo01.png" alt="Nebulytix Technologies" />
-            <span className="logo-text hidden sm:block">Nebulytix Technologies</span>
+          <Link to="/" className="logo navbar-logo scale-90 md:scale-100 origin-left shrink-0 mr-4 xl:mr-8 flex items-center">
+            <img src="/src/assets/logo.png" alt="Nebulytix Technologies" className="-my-4 shrink-0" />
+            <span className="logo-text hidden sm:block mt-2">NEBULYTIX</span>
           </Link>
 
           {/* ── Desktop Menu ── */}
