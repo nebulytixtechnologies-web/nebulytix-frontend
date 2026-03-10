@@ -10,6 +10,7 @@ import {
   HiOutlineFolder,
   HiOutlineLogout,
   HiX,
+  HiOutlineCalendar,
 } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/slices/authSlice';
@@ -26,7 +27,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     { path: '/admin/projects', icon: HiOutlineFolder, label: 'Projects' },
     { path: '/admin/jobs', icon: HiOutlineBriefcase, label: 'Jobs' },
     { path: '/admin/applications', icon: HiOutlineDocumentText, label: 'Applications' },
-    { path: '/admin/partners', icon: HiOutlineUsers, label: 'Partners' },
+    { path: '/admin/meetings', icon: HiOutlineCalendar, label: 'Meetings' },
   ];
 
   // Add Users menu only for Admin
