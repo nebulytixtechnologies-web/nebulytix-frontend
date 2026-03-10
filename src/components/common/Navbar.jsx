@@ -43,6 +43,8 @@ const Navbar = ({ onBookingOpen }) => {
       name: 'Company',
       subLinks: [
         { name: 'About Us', path: '/about' },
+        { name: 'Services', path: '/services' },
+        { name: 'Products', path: '/products' },
         { name: 'Partners', path: '/partners' },
         { name: 'Careers', path: '/careers' },
       ]

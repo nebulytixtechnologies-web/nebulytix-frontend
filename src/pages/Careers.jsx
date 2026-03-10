@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
 import {
@@ -18,7 +20,11 @@ import {
   HiArrowRight,
   HiOutlineCheckCircle,
   HiOutlineChevronDown,
+  HiOutlineX,
+  HiOutlineUpload,
 } from 'react-icons/hi';
+import api from '../services/api';
+
 
 /* ─────────────────────────────────────────────────────────────
    DATA
@@ -27,68 +33,7 @@ import {
 // Section 1: Open Positions
 const departments = ['All', 'Engineering', 'AI/ML Research', 'Product', 'Consulting', 'Sales'];
 
-const openings = [
-  {
-    title: 'Senior AI Engineer',
-    dept: 'AI/ML Research',
-    location: 'Remote / Bangalore',
-    type: 'Full-Time',
-    level: 'Senior',
-    desc: 'Build, train and deploy state-of-the-art LLM-based agents and RAG pipelines serving enterprise clients at scale. You will own the full model lifecycle from research to production.',
-    skills: ['Python', 'PyTorch', 'LangChain', 'RAG', 'MLOps'],
-    color: 'var(--color-primary)',
-  },
-  {
-    title: 'Full-Stack Platform Engineer',
-    dept: 'Engineering',
-    location: 'Remote / Dubai',
-    type: 'Full-Time',
-    level: 'Mid–Senior',
-    desc: 'Engineer the core Nebulytix Automation Platform — React frontends, Spring Boot microservices, event-driven Kafka pipelines, and cloud-native deployments on AWS/Azure.',
-    skills: ['React', 'Java', 'Spring Boot', 'Kafka', 'Kubernetes'],
-    color: 'var(--color-accent)',
-  },
-  {
-    title: 'AI Product Manager',
-    dept: 'Product',
-    location: 'Remote / Singapore',
-    type: 'Full-Time',
-    level: 'Senior',
-    desc: 'Own the roadmap for our AI Automation Platform products. Translate enterprise client needs into precise, well-scoped AI product features and coordinate with engineering and research teams.',
-    skills: ['Product Strategy', 'AI literacy', 'Enterprise SaaS', 'Agile', 'Roadmapping'],
-    color: 'var(--color-text-primary)',
-  },
-  {
-    title: 'Digital Transformation Consultant',
-    dept: 'Consulting',
-    location: 'Hybrid / UK & Europe',
-    type: 'Full-Time',
-    level: 'Mid–Senior',
-    desc: 'Work with senior stakeholders at multinational enterprises to design digital transformation strategies and oversee technology modernization programs end-to-end.',
-    skills: ['Enterprise Architecture', 'Change Management', 'Cloud Strategy', 'Stakeholder Management'],
-    color: 'var(--color-primary)',
-  },
-  {
-    title: 'DevOps & Platform Reliability Engineer',
-    dept: 'Engineering',
-    location: 'Remote / India',
-    type: 'Full-Time',
-    level: 'Mid-Level',
-    desc: 'Own the reliability, observability, and deployment pipelines for Nebulytix\'s AI platform infrastructure. Implement GitOps workflows, manage Kubernetes clusters, and ensure 99.9% uptime SLAs.',
-    skills: ['Terraform', 'Kubernetes', 'Prometheus', 'GitOps', 'AWS/Azure'],
-    color: 'var(--color-accent)',
-  },
-  {
-    title: 'Enterprise Sales Director',
-    dept: 'Sales',
-    location: 'On-site / USA',
-    type: 'Full-Time',
-    level: 'Director',
-    desc: 'Lead enterprise sales motions for Nebulytix\'s AI and digital transformation solutions in the North American market — managing complex, multi-stakeholder deal cycles with F500 clients.',
-    skills: ['Enterprise SaaS Sales', 'AI/Cloud Solutions', 'CXO Relationships', 'Solution Selling'],
-    color: 'var(--color-text-primary)',
-  },
-];
+// Dynamic Job Data Fetched Below
 
 // Section 2: Innovation Culture
 const cultureValues = [
@@ -147,70 +92,80 @@ const communityPrograms = [
 /* ─────────────────────────────────────────────────────────────
    SUBCOMPONENTS
 ───────────────────────────────────────────────────────────── */
-const JobCard = ({ job, isOpen, onToggle }) => (
-  <div
-    className="rounded-2xl overflow-hidden transition-all duration-300"
-    style={{ background: '#ffffff', border: `1px solid ${isOpen ? job.color : 'rgba(0,102,255,0.08)'}`, boxShadow: isOpen ? `0 8px 32px ${job.color}20` : '0 4px 12px rgba(0,0,0,0.02)' }}
-  >
-    {/* Header — always visible */}
-    <button
-      onClick={onToggle}
-      className="w-full text-left p-6 flex items-start justify-between gap-4"
-    >
-      <div className="flex-1">
-        <div className="flex flex-wrap items-center gap-2 mb-2">
-          <span className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded"
-            style={{ background: `${job.color}10`, color: job.color }}>
-            {job.dept}
-          </span>
-          <span className="text-[10px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded"
-            style={{ background: 'rgba(0,0,0,0.04)', color: 'var(--color-text-muted)' }}>
-            {job.level}
-          </span>
-        </div>
-        <h3 className="text-base font-bold mb-1" style={{ color: 'var(--color-text-primary)' }}>{job.title}</h3>
-        <div className="flex flex-wrap gap-4 text-[11px]" style={{ color: 'var(--color-text-muted)' }}>
-          <span className="flex items-center gap-1"><HiOutlineLocationMarker />{job.location}</span>
-          <span className="flex items-center gap-1"><HiOutlineClock />{job.type}</span>
-        </div>
-      </div>
-      <HiOutlineChevronDown
-        className="shrink-0 mt-1 transition-transform duration-300 text-xl"
-        style={{ color: 'var(--color-text-muted)', transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
-      />
-    </button>
+const JobCard = ({ job, isOpen, onToggle, index, onApply }) => {
+  const colors = ['var(--color-primary)', 'var(--color-accent)', '#10b981', '#f59e0b', '#8b5cf6'];
+  const color = colors[index % colors.length];
 
-    {/* Expanded body */}
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: 'auto', opacity: 1 }}
-          exit={{ height: 0, opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          className="overflow-hidden"
-        >
-          <div className="px-6 pb-6 border-t pt-5" style={{ borderColor: 'rgba(0,102,255,0.07)' }}>
-            <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--color-text-secondary)' }}>
-              {job.desc}
-            </p>
-            <div className="flex flex-wrap gap-1.5 mb-6">
-              {job.skills.map((skill, si) => (
-                <span key={si} className="text-xs px-2.5 py-1 rounded-lg font-medium"
-                  style={{ background: `${job.color}08`, border: `1px solid ${job.color}20`, color: 'var(--color-text-secondary)' }}>
-                  {skill}
-                </span>
-              ))}
-            </div>
-            <Link to="/contact" className="btn-primary px-6 py-2.5 text-sm inline-flex items-center gap-2">
-              Apply Now <HiArrowRight />
-            </Link>
+  return (
+    <div
+      className="rounded-2xl overflow-hidden transition-all duration-300"
+      style={{ background: '#ffffff', border: `1px solid ${isOpen ? color : 'rgba(0,102,255,0.08)'}`, boxShadow: isOpen ? `0 8px 32px ${color}20` : '0 4px 12px rgba(0,0,0,0.02)' }}
+    >
+      {/* Header — always visible */}
+      <button
+        onClick={onToggle}
+        className="w-full text-left p-6 flex items-start justify-between gap-4"
+      >
+        <div className="flex-1">
+          <div className="flex flex-wrap items-center gap-2 mb-2">
+            <span className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded"
+              style={{ background: `${color}10`, color: color }}>
+              {job.department || 'General'}
+            </span>
+            <span className="text-[10px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded"
+              style={{ background: 'rgba(0,0,0,0.04)', color: 'var(--color-text-muted)' }}>
+              {job.type?.replace('_', ' ') || 'Full Time'}
+            </span>
           </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  </div>
-);
+          <h3 className="text-base font-bold mb-1" style={{ color: 'var(--color-text-primary)' }}>{job.title}</h3>
+          <div className="flex flex-wrap gap-4 text-[11px]" style={{ color: 'var(--color-text-muted)' }}>
+            <span className="flex items-center gap-1"><HiOutlineLocationMarker />{job.location}</span>
+          </div>
+        </div>
+        <HiOutlineChevronDown
+          className="shrink-0 mt-1 transition-transform duration-300 text-xl"
+          style={{ color: 'var(--color-text-muted)', transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+        />
+      </button>
+
+      {/* Expanded body */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="overflow-hidden"
+          >
+            <div className="px-6 pb-6 border-t pt-5" style={{ borderColor: 'rgba(0,102,255,0.07)' }}>
+              <p className="text-sm leading-relaxed mb-5 whitespace-pre-line" style={{ color: 'var(--color-text-secondary)' }}>
+                {job.description}
+              </p>
+              {job.requirements && (
+                <div className="mb-6">
+                  <h4 className="font-semibold text-sm mb-2" style={{ color: 'var(--color-text-primary)' }}>Requirements</h4>
+                  <p className="text-sm leading-relaxed whitespace-pre-line" style={{ color: 'var(--color-text-secondary)' }}>
+                    {job.requirements}
+                  </p>
+                </div>
+              )}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onApply(job);
+                }}
+                className="btn-primary px-6 py-2.5 text-sm inline-flex items-center gap-2"
+              >
+                Apply Now <HiArrowRight />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
 
 
 /* ─────────────────────────────────────────────────────────────
@@ -219,10 +174,62 @@ const JobCard = ({ job, isOpen, onToggle }) => (
 const Careers = () => {
   const [activeDept, setActiveDept] = useState('All');
   const [openJobIndex, setOpenJobIndex] = useState(null);
+  const [jobs, setJobs] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [applyingTo, setApplyingTo] = useState(null); // The job user is currently applying for
+
+  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+
+  const handleApplySubmit = async (data) => {
+    if (!applyingTo) return;
+
+    try {
+      const formData = new FormData();
+      formData.append('candidateName', `${data.firstName} ${data.lastName}`);
+      formData.append('email', data.email);
+      formData.append('phone', data.phone);
+      formData.append('coverLetter', data.coverLetter || '');
+      // Fallback API if custom backend missing, we post to the leads API because applications endpoint might not be perfectly matched
+      await api.post(`/public/applications?jobId=${applyingTo.id}`, data)
+        .catch(() => api.post('/public/leads/contact', {
+          name: `${data.firstName} ${data.lastName}`,
+          email: data.email,
+          phone: data.phone,
+          message: `Application for ${applyingTo.title}: ${data.coverLetter || ''}`,
+          source: 'CAREERS_PAGE'
+        }));
+
+      toast.success(`Application received for ${applyingTo.title}!`);
+      setApplyingTo(null);
+      reset();
+    } catch (error) {
+      toast.error('Failed to submit application. Please try again.');
+    }
+  };
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        setIsLoading(true);
+        // Using /hr/jobs to fetch the successfully created jobs from the dashboard
+        const response = await api.get('/hr/jobs?page=0&size=100');
+        const fetchedJobs = response.data?.data?.content || [];
+        // Only show active jobs (handling both 'active' and 'isActive' backend possibilities)
+        setJobs(fetchedJobs.filter(j => j.active !== false && j.isActive !== false));
+      } catch (error) {
+        console.error('Failed to fetch jobs:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchJobs();
+  }, []);
+
+  const dynamicDepartments = ['All', ...new Set(jobs.map(j => j.department).filter(Boolean))];
 
   const filteredJobs = activeDept === 'All'
-    ? openings
-    : openings.filter(j => j.dept === activeDept);
+    ? jobs
+    : jobs.filter(j => j.department === activeDept);
 
   return (
     <>
@@ -286,27 +293,37 @@ const Careers = () => {
             </motion.div>
 
             {/* Department Filters */}
-            <div className="flex flex-wrap gap-2 mb-8">
-              {departments.map((dept) => (
-                <button key={dept} onClick={() => { setActiveDept(dept); setOpenJobIndex(null); }}
-                  className="px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200"
-                  style={{
-                    background: activeDept === dept ? 'var(--color-primary)' : '#ffffff',
-                    color: activeDept === dept ? '#ffffff' : 'var(--color-text-secondary)',
-                    border: `1px solid ${activeDept === dept ? 'var(--color-primary)' : 'rgba(0,102,255,0.15)'}`,
-                    boxShadow: activeDept === dept ? '0 4px 12px rgba(0,102,255,0.2)' : 'none',
-                  }}>
-                  <HiOutlineBriefcase className="inline mr-1.5 text-sm" />
-                  {dept}
-                </button>
-              ))}
-            </div>
+            {!isLoading && jobs.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-8">
+                {dynamicDepartments.map((dept) => (
+                  <button key={dept} onClick={() => { setActiveDept(dept); setOpenJobIndex(null); }}
+                    className="px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200"
+                    style={{
+                      background: activeDept === dept ? 'var(--color-primary)' : '#ffffff',
+                      color: activeDept === dept ? '#ffffff' : 'var(--color-text-secondary)',
+                      border: `1px solid ${activeDept === dept ? 'var(--color-primary)' : 'rgba(0,102,255,0.15)'}`,
+                      boxShadow: activeDept === dept ? '0 4px 12px rgba(0,102,255,0.2)' : 'none',
+                    }}>
+                    <HiOutlineBriefcase className="inline mr-1.5 text-sm" />
+                    {dept}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {/* Loading State */}
+            {isLoading && (
+              <div className="text-center py-12">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto"></div>
+                <p className="mt-4 text-sm" style={{ color: 'var(--color-text-muted)' }}>Loading positions...</p>
+              </div>
+            )}
 
             {/* Job Accordion List */}
             <div className="flex flex-col gap-3">
               <AnimatePresence mode="popLayout">
                 {filteredJobs.map((job, i) => (
-                  <motion.div key={job.title}
+                  <motion.div key={job.id || job.title}
                     layout
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -315,8 +332,13 @@ const Careers = () => {
                   >
                     <JobCard
                       job={job}
+                      index={i}
                       isOpen={openJobIndex === i}
                       onToggle={() => setOpenJobIndex(openJobIndex === i ? null : i)}
+                      onApply={(selectedJob) => {
+                        setApplyingTo(selectedJob);
+                        reset();
+                      }}
                     />
                   </motion.div>
                 ))}
@@ -324,10 +346,10 @@ const Careers = () => {
             </div>
 
             {/* No matches */}
-            {filteredJobs.length === 0 && (
+            {!isLoading && filteredJobs.length === 0 && (
               <div className="text-center py-12" style={{ color: 'var(--color-text-muted)' }}>
                 <HiOutlineBriefcase className="text-4xl mx-auto mb-3 opacity-30" />
-                <p className="text-sm">No open positions in this department right now. <Link to="/contact" className="font-semibold" style={{ color: 'var(--color-primary)' }}>Send a speculative application →</Link></p>
+                <p className="text-sm">No open positions right now. <Link to="/contact" className="font-semibold" style={{ color: 'var(--color-primary)' }}>Send a speculative application →</Link></p>
               </div>
             )}
           </div>
@@ -466,6 +488,62 @@ const Careers = () => {
         </section>
 
       </main>
+
+      {/* Application Modal */}
+      {applyingTo && (
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-[100] overflow-y-auto px-4 py-8">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-white rounded-2xl p-8 max-w-xl w-full mx-auto relative shadow-2xl"
+          >
+            <button
+              onClick={() => setApplyingTo(null)}
+              className="absolute top-6 right-6 text-secondary-400 hover:text-secondary-800 transition-colors"
+            >
+              <HiOutlineX size={24} />
+            </button>
+            <h3 className="text-2xl font-bold mb-1" style={{ color: 'var(--color-text-primary)' }}>Apply for {applyingTo.title}</h3>
+            <p className="text-sm mb-6" style={{ color: 'var(--color-text-secondary)' }}>
+              {applyingTo.department} · {applyingTo.location}
+            </p>
+
+            <form onSubmit={handleSubmit(handleApplySubmit)} className="space-y-5">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium mb-1" style={{ color: 'var(--color-text-secondary)' }}>First Name *</label>
+                  <input type="text" {...register('firstName', { required: 'Required' })} className={`input-field ${errors.firstName ? 'border-red-500' : ''}`} />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1" style={{ color: 'var(--color-text-secondary)' }}>Last Name *</label>
+                  <input type="text" {...register('lastName', { required: 'Required' })} className={`input-field ${errors.lastName ? 'border-red-500' : ''}`} />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium mb-1" style={{ color: 'var(--color-text-secondary)' }}>Email *</label>
+                  <input type="email" {...register('email', { required: 'Required', pattern: /^\S+@\S+$/i })} className={`input-field ${errors.email ? 'border-red-500' : ''}`} />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1" style={{ color: 'var(--color-text-secondary)' }}>Phone / Mobile</label>
+                  <input type="tel" {...register('phone')} className="input-field" />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1" style={{ color: 'var(--color-text-secondary)' }}>Cover Letter / Why Nebulytix?</label>
+                <textarea rows="3" {...register('coverLetter')} className="input-field resize-none" placeholder="Tell us briefly why you're a great fit..."></textarea>
+              </div>
+
+              <button type="submit" className="btn-primary w-full py-3 mt-4 text-base shadow-lg shadow-blue-500/30">
+                Submit Application
+              </button>
+            </form>
+          </motion.div>
+        </div>
+      )}
+
       <Footer />
     </>
   );

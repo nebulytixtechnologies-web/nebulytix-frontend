@@ -2,47 +2,22 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import {
-    HiOutlineUserGroup,
+    HiOutlineBolt,
+    HiOutlineShieldCheck,
+    HiOutlineUsers,
+    HiOutlineChartBar,
+    HiOutlineCheckCircle,
     HiOutlineCpuChip,
-    HiOutlineCube,
-    HiOutlineArrowsRightLeft,
-    HiOutlineCheckBadge,
-    HiOutlineGlobeAlt,
-    HiOutlineRocketLaunch,
+    HiOutlineCog6Tooth,
+    HiOutlineCloud,
+    HiOutlineHeart,
+    HiOutlineServerStack,
     HiOutlineArrowRight
 } from 'react-icons/hi2';
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
 
 const Partners = () => {
-    const partnerTypes = [
-        {
-            icon: HiOutlineCpuChip,
-            title: 'Technology Partners',
-            desc: 'Collaborate on core AI research, infrastructure, and computational breakthroughs.',
-            color: 'var(--color-primary)'
-        },
-        {
-            icon: HiOutlineCube,
-            title: 'Product Partners',
-            desc: 'Bundle our AI solutions with your software or hardware to deliver enhanced value.',
-            color: 'var(--color-accent)'
-        },
-        {
-            icon: HiOutlineArrowsRightLeft,
-            title: 'Integration Partners',
-            desc: 'Implement and customize Nebulytix ecosystems for global enterprise clients.',
-            color: 'var(--color-text-primary)'
-        }
-    ];
-
-    const benefits = [
-        { title: 'Early Access', desc: 'Get priority access to our latest R&D and beta features.' },
-        { title: 'Joint Marketing', desc: 'Collaborative campaigns and shared presence at global events.' },
-        { title: 'Technical Support', desc: 'Dedicated engineering resources for integration success.' },
-        { title: 'Revenue Share', desc: 'Competitive tiered commission models for mutual growth.' }
-    ];
-
     return (
         <>
             <Helmet>
@@ -78,104 +53,134 @@ const Partners = () => {
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary-50/30 blur-[120px] rounded-full -z-1" />
                 </section>
 
-                {/* Partner Program Overview */}
-                <section className="py-24 border-t border-slate-100">
-                    <div className="container-custom">
+                {/* Section 1: Why Organizations Choose Nebulytix */}
+                <section className="py-24 bg-white">
+                    <div className="container-custom max-w-7xl mx-auto">
                         <div className="grid lg:grid-cols-2 gap-16 items-center">
                             <motion.div
                                 initial={{ opacity: 0, x: -30 }}
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
                             >
-                                <h2 className="text-3xl md:text-4xl font-black mb-8" style={{ color: 'var(--color-text-primary)' }}>
-                                    Partner Program <span className="text-gradient">Overview</span>
+                                <img src="/images/about-meeting.jpg" onError={(e) => { e.target.onerror = null; e.target.src = "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=1000"; }} alt="Team Meeting" className="rounded-[32px] w-full h-auto object-cover shadow-lg aspect-[4/3]" />
+                            </motion.div>
+
+                            <motion.div
+                                initial={{ opacity: 0, x: 30 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                            >
+                                <h2 className="text-3xl md:text-5xl font-bold mb-6 text-[#0B1B3D] leading-tight">
+                                    Why Organizations Choose Nebulytix
                                 </h2>
-                                <p className="text-lg text-slate-600 mb-8 leading-relaxed">
-                                    Our partner program is designed for synergy. Whether you provide the silicon that powers our AI, the software that integrates with our platform, or the services that deploy our ecosystems, we provide a structured path to shared success.
+                                <p className="text-slate-600 mb-10 text-lg leading-relaxed">
+                                    Enterprises choose Nebulytix because we combine technology expertise, scalable platforms, and a collaborative ecosystem approach.
                                 </p>
-                                <div className="grid sm:grid-cols-2 gap-6">
-                                    {benefits.map((benefit, i) => (
-                                        <div key={i} className="flex gap-3">
-                                            <HiOutlineCheckBadge className="text-primary-500 text-2xl shrink-0" />
-                                            <div>
-                                                <h4 className="font-bold text-slate-900 mb-1">{benefit.title}</h4>
-                                                <p className="text-sm text-slate-500 leading-snug">{benefit.desc}</p>
+
+                                <div className="space-y-4">
+                                    {[
+                                        { title: 'Faster digital transformation initiatives', icon: HiOutlineBolt },
+                                        { title: 'Reduced implementation risk', icon: HiOutlineShieldCheck },
+                                        { title: 'Access to trusted technology partners', icon: HiOutlineUsers },
+                                        { title: 'Scalable AI-driven systems and platforms', icon: HiOutlineChartBar },
+                                    ].map((item, idx) => (
+                                        <div key={idx} className="flex items-center gap-5 bg-[#F8FAFC] p-4 pr-6 rounded-2xl border border-slate-100 hover:shadow-md transition-all text-[#0B1B3D]">
+                                            <div className="w-14 h-14 flex items-center justify-center bg-[#EBF3FF] text-[#2563EB] rounded-xl shrink-0">
+                                                <item.icon className="text-2xl" />
                                             </div>
+                                            <span className="font-medium text-[1.05rem]">{item.title}</span>
                                         </div>
                                     ))}
-                                </div>
-                            </motion.div>
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                className="relative lg:h-[450px]"
-                            >
-                                <div className="absolute inset-0 bg-gradient-primary opacity-[0.03] rounded-[40px] transform rotate-3" />
-                                <div className="relative h-full glass rounded-[40px] p-8 border border-white flex flex-col justify-center overflow-hidden">
-                                    <div className="flex justify-between items-center mb-12">
-                                        <div className="w-16 h-16 bg-white shadow-lg rounded-2xl flex items-center justify-center text-primary-600 text-3xl">
-                                            <HiOutlineRocketLaunch />
-                                        </div>
-                                        <div className="w-32 h-2 bg-slate-100 rounded-full" />
-                                        <div className="w-16 h-16 bg-white shadow-lg rounded-2xl flex items-center justify-center text-accent-500 text-3xl">
-                                            <HiOutlineGlobeAlt />
-                                        </div>
-                                    </div>
-                                    <p className="text-2xl font-black text-center mb-4" style={{ color: 'var(--color-text-primary)' }}>
-                                        Collective Intelligence <br /> Scaled Globally
-                                    </p>
-                                    <div className="flex flex-wrap justify-center gap-2 mt-8">
-                                        {['Silicon Vendors', 'SaaS Platforms', 'Global SI', 'Resellers'].map(tag => (
-                                            <span key={tag} className="px-4 py-2 bg-primary-50 text-primary-600 rounded-full text-xs font-bold border border-primary-100">
-                                                {tag}
-                                            </span>
-                                        ))}
-                                    </div>
                                 </div>
                             </motion.div>
                         </div>
                     </div>
                 </section>
 
-                {/* Partner Categories */}
-                <section className="py-24 bg-slate-50 relative overflow-hidden">
-                    <div className="container-custom relative z-10">
-                        <div className="text-center max-w-2xl mx-auto mb-16">
-                            <h2 className="text-3xl md:text-5xl font-black mb-6" style={{ color: 'var(--color-text-primary)' }}>
-                                Collaboration <span className="text-gradient">Channels</span>
-                            </h2>
-                            <p className="text-lg text-slate-600">
-                                We operate across three primary partnership layers to ensure comprehensive coverage of the enterprise AI landscape.
-                            </p>
-                        </div>
-                        <div className="grid md:grid-cols-3 gap-8">
-                            {partnerTypes.map((type, idx) => (
-                                <motion.div
-                                    key={idx}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: idx * 0.1 }}
-                                    className="p-10 rounded-[32px] bg-white border border-slate-200 shadow-sm hover:shadow-xl transition-all group"
-                                >
-                                    <div
-                                        className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform"
-                                        style={{ background: `${type.color}08`, color: type.color, border: `1px solid ${type.color}15` }}
-                                    >
-                                        <type.icon />
+                {/* Section 2: Why Partners Work with Nebulytix */}
+                <section className="py-24 bg-white">
+                    <div className="container-custom max-w-7xl mx-auto">
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="bg-[#0B172E] rounded-[40px] p-12 lg:p-16 text-white grid lg:grid-cols-2 gap-16 shadow-2xl relative overflow-hidden"
+                        >
+                            {/* Decorative background gradients purely for polish */}
+                            <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+                                <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-[#2563EB] opacity-10 blur-[130px] rounded-full"></div>
+                                <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-[#60A5FA] opacity-5 blur-[130px] rounded-full"></div>
+                            </div>
+
+                            <div className="relative z-10 flex flex-col justify-center">
+                                <h4 className="text-[#60A5FA] font-bold text-[0.85rem] tracking-widest uppercase mb-4">Partner Benefits</h4>
+                                <h2 className="text-3xl lg:text-5xl font-bold mb-6 leading-tight">Why Partners Work with Nebulytix</h2>
+                                <p className="text-[#94A3B8] text-lg leading-relaxed">
+                                    Nebulytix provides technology partners with a powerful platform to scale their products and access enterprise opportunities.
+                                </p>
+                            </div>
+
+                            <div className="space-y-3 relative z-10">
+                                {[
+                                    'Access to enterprise clients and global markets',
+                                    'Joint product promotion and solution development',
+                                    'Integration with Nebulytix AI automation platforms',
+                                    'Co-selling and go-to-market opportunities',
+                                    'Strategic consulting and technology support'
+                                ].map((benefit, idx) => (
+                                    <div key={idx} className="flex items-center gap-5 bg-[#17243E] p-5 rounded-2xl border border-[#233554] hover:bg-[#1E2E4B] hover:border-[#38517A] transition-colors cursor-default">
+                                        <HiOutlineCheckCircle className="text-[#60A5FA] text-2xl shrink-0" />
+                                        <span className="text-slate-200 text-lg font-medium">{benefit}</span>
                                     </div>
-                                    <h3 className="text-2xl font-black mb-4 text-slate-900">{type.title}</h3>
-                                    <p className="text-slate-600 leading-relaxed mb-6">
-                                        {type.desc}
-                                    </p>
-                                    <div className="pt-6 border-t border-slate-50">
-                                        <button className="text-primary-600 font-bold text-sm flex items-center gap-2 group/btn">
-                                            Learn More <HiOutlineArrowRight className="group-hover/btn:translate-x-1 transition-transform" />
-                                        </button>
-                                    </div>
-                                </motion.div>
-                            ))}
+                                ))}
+                            </div>
+                        </motion.div>
+                    </div>
+                </section>
+
+                {/* Section 3: Partner With Nebulytix */}
+                <section className="py-24 bg-white">
+                    <div className="container-custom max-w-7xl mx-auto">
+                        <div className="grid lg:grid-cols-2 gap-16 items-start">
+                            <motion.div
+                                initial={{ opacity: 0, x: -30 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                className="sticky top-32"
+                            >
+                                <h4 className="text-[#2563EB] font-bold text-[0.85rem] tracking-widest uppercase mb-4">Partnership</h4>
+                                <h2 className="text-3xl lg:text-5xl font-bold mb-6 text-[#0B1B3D] leading-tight">Partner With Nebulytix</h2>
+                                <p className="text-slate-600 text-lg leading-relaxed mb-10">
+                                    Nebulytix collaborates with technology innovators, startups, and enterprise solution providers to expand the digital ecosystem. Together, we build scalable solutions that accelerate innovation and enterprise transformation.
+                                </p>
+                                <button className="bg-[#2563EB] hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-xl transition-all flex items-center justify-between w-max gap-4 shadow-lg shadow-blue-500/30">
+                                    Join Our Partner Network <HiOutlineArrowRight className="text-xl" />
+                                </button>
+                            </motion.div>
+
+                            <motion.div
+                                initial={{ opacity: 0, x: 30 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                            >
+                                <p className="text-slate-500 mb-6 text-lg">Organizations developing solutions in these areas can join our partner network:</p>
+                                <div className="space-y-4">
+                                    {[
+                                        { title: 'Artificial Intelligence', icon: HiOutlineCpuChip },
+                                        { title: 'Automation Technologies', icon: HiOutlineCog6Tooth },
+                                        { title: 'SaaS Platforms', icon: HiOutlineCloud },
+                                        { title: 'Healthcare Technology', icon: HiOutlineHeart },
+                                        { title: 'Enterprise Systems', icon: HiOutlineServerStack },
+                                    ].map((item, idx) => (
+                                        <div key={idx} className="flex items-center gap-5 bg-white p-5 rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all text-[#0B1B3D]">
+                                            <div className="w-14 h-14 flex items-center justify-center bg-[#EBF3FF] text-[#2563EB] rounded-2xl shrink-0">
+                                                <item.icon className="text-[1.75rem]" />
+                                            </div>
+                                            <span className="font-semibold text-lg">{item.title}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </motion.div>
                         </div>
                     </div>
                 </section>
@@ -193,7 +198,6 @@ const Partners = () => {
                             Become a Partner
                         </button>
                     </div>
-                    {/* Background Pattern */}
                     <div className="absolute inset-0 opacity-[0.05] pointer-events-none"
                         style={{ backgroundImage: 'radial-gradient(var(--color-primary-light) 0.5px, transparent 0.5px)', backgroundSize: '16px 16px' }} />
                 </section>

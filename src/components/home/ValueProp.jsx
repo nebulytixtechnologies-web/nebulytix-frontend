@@ -1,70 +1,73 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { HiOutlineSparkles, HiOutlineRefresh, HiOutlineUserGroup } from 'react-icons/hi';
+import { HiOutlineEye, HiOutlineRocketLaunch } from 'react-icons/hi2';
+import { HiOutlineCheckCircle } from 'react-icons/hi';
 
 const ValueProp = () => {
-    const values = [
-        {
-            icon: HiOutlineSparkles,
-            title: 'AI Automation',
-            description: 'Accelerate enterprise AI adoption with autonomous agents, intelligent workflow automation, and AI-driven decision systems at scale.',
-            color: 'var(--color-primary)',
-        },
-        {
-            icon: HiOutlineRefresh,
-            title: 'Digital Transformation',
-            description: 'Enable partners to scale their products globally with cloud-native modernization and intelligent platform integration.',
-            color: 'var(--color-accent)',
-        },
-        {
-            icon: HiOutlineUserGroup,
-            title: 'Partner Ecosystem',
-            description: 'Create collaborative technology ecosystems where enterprises, startups, and technology partners solve complex industry challenges together.',
-            color: 'var(--color-text-primary)',
-        },
+    const missions = [
+        "Accelerate enterprise adoption of Artificial Intelligence and automation",
+        "Enable technology partners to scale their solutions globally",
+        "Build intelligent platforms that simplify digital transformation",
+        "Foster collaborative ecosystems that drive innovation and growth"
     ];
 
     return (
-        <section className="py-20 relative overflow-hidden" style={{ background: 'var(--color-bg)' }}>
+        <section className="py-24 relative overflow-hidden" style={{ background: 'var(--color-bg)' }}>
             <div className="container-custom relative z-10">
-                <motion.div
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-center mb-12"
-                >
-                    <span className="section-eyebrow" style={{ color: 'var(--color-primary)', background: 'rgba(0,102,255,0.06)', border: '1px solid rgba(0,102,255,0.12)' }}>
-                        Our Mission
-                    </span>
-                    <h2 className="section-title">Our <span className="text-gradient">Value Proposition</span></h2>
-                    <p className="section-subtitle max-w-2xl mx-auto">
-                        Nebulytix exists to accelerate enterprise AI adoption, enable partners to scale globally,
-                        and build intelligent platforms that simplify digital transformation.
-                    </p>
-                </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                    {values.map((val, idx) => (
-                        <motion.div
-                            key={idx}
-                            initial={{ opacity: 0, y: 16 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: idx * 0.08 }}
-                            className="card group hover:shadow-lg transition-shadow duration-300"
-                            style={{ border: '1px solid rgba(0,102,255,0.08)' }}
-                        >
-                            <div
-                                className="w-10 h-10 rounded-xl mb-4 flex items-center justify-center text-xl"
-                                style={{ background: `${val.color}12`, border: `1px solid ${val.color}25`, color: val.color }}
-                            >
-                                <val.icon />
-                            </div>
-                            <h3 className="text-base font-semibold mb-2" style={{ color: 'var(--color-text-primary)' }}>{val.title}</h3>
-                            <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>{val.description}</p>
-                        </motion.div>
-                    ))}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
+                    {/* Vision */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="rounded-3xl p-8 lg:p-10 relative overflow-hidden"
+                        style={{ background: 'var(--color-bg-surface)', border: '1px solid rgba(0,102,255,0.08)', boxShadow: '0 10px 40px rgba(0,0,0,0.02)' }}
+                    >
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500 opacity-5 blur-[100px] rounded-full" />
+
+                        <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6" style={{ background: 'rgba(0,102,255,0.1)', color: 'var(--color-primary)' }}>
+                            <HiOutlineEye size={28} />
+                        </div>
+                        <h2 className="text-2xl font-bold mb-4" style={{ color: 'var(--color-text-primary)' }}>Our <span className="text-gradient">Vision</span></h2>
+                        <p className="text-base leading-relaxed mb-6" style={{ color: 'var(--color-text-secondary)' }}>
+                            At Nebulytix, we envision a future where technology innovation is driven through collaboration, scalable platforms, and intelligent systems.
+                        </p>
+                        <p className="text-base leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
+                            Our goal is to build a global AI ecosystem that connects enterprises, startups, and technology partners to solve complex industry challenges and accelerate digital transformation.
+                        </p>
+                    </motion.div>
+
+                    {/* Mission */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.1 }}
+                        className="rounded-3xl p-8 lg:p-10 relative overflow-hidden"
+                        style={{ background: 'var(--color-bg-surface)', border: '1px solid rgba(0,200,255,0.08)', boxShadow: '0 10px 40px rgba(0,0,0,0.02)' }}
+                    >
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-accent-500 opacity-5 blur-[100px] rounded-full" />
+
+                        <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6" style={{ background: 'rgba(0,200,255,0.1)', color: 'var(--color-accent)' }}>
+                            <HiOutlineRocketLaunch size={28} />
+                        </div>
+                        <h2 className="text-2xl font-bold mb-4" style={{ color: 'var(--color-text-primary)' }}>Our <span className="text-gradient" style={{ backgroundImage: 'linear-gradient(to right, var(--color-accent), #00e5ff)' }}>Mission</span></h2>
+                        <p className="text-base leading-relaxed mb-6" style={{ color: 'var(--color-text-secondary)' }}>
+                            Nebulytix is committed to empowering organizations and partners through advanced technology platforms and strategic collaboration. Our mission is to:
+                        </p>
+
+                        <ul className="space-y-3">
+                            {missions.map((mission, idx) => (
+                                <li key={idx} className="flex items-start gap-3">
+                                    <HiOutlineCheckCircle className="shrink-0 mt-1 text-lg" style={{ color: 'var(--color-accent)' }} />
+                                    <span className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>{mission}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </motion.div>
                 </div>
+
             </div>
         </section>
     );
