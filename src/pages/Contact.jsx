@@ -18,6 +18,9 @@ import {
     HiCheckCircle,
 } from 'react-icons/hi';
 import { FaWhatsapp } from 'react-icons/fa';
+import toast from 'react-hot-toast';
+import api from '../services/api';
+
 
 /* ─────────────────────────────────────────────────────────────
    CONFIG
@@ -49,8 +52,8 @@ const Contact = () => {
     const [bookingDone, setBookingDone] = useState(false);
     const [presenter, setPresenter] = useState(null);
     const [formData, setFormData] = useState({
-        fullName: '', company: '', email: '', phone: '',
-        service: '', employees: '', message: '', budget: '',
+        fullName: '', email: '', phone: '',
+        service: '', message: '',
     });
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [formLoading, setFormLoading] = useState(false);
@@ -68,13 +71,38 @@ const Contact = () => {
     /* ── Form handlers ── */
     const handleChange = (e) => setFormData(f => ({ ...f, [e.target.name]: e.target.value }));
 
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
         setFormLoading(true);
-        setTimeout(() => {
-            setFormLoading(false);
+        try {
+            await api.post('/public/leads/contact', {
+                name: formData.fullName,
+                email: formData.email,
+                phone: formData.phone,
+                serviceInterest: formData.service,
+                message: formData.message,
+                source: 'CONTACT_FORM'
+            });
             setFormSubmitted(true);
-        }, 1500);
+        } catch (error) {
+            console.error('Consultation form error:', error);
+            toast.error('Failed to submit your request. Please try again.');
+        } finally {
+            setFormLoading(false);
+        }
+    };
+
+    const handleWhatsAppClick = async (e) => {
+        e.preventDefault();
+        try {
+            await api.post('/public/leads/whatsapp-click', {
+                source: 'WHATSAPP_CLICK',
+                pageUrl: window.location.href
+            });
+        } catch (error) {
+            // Proceed to open WhatsApp even if request fails
+        }
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`, '_blank');
     };
 
     return (
@@ -227,7 +255,7 @@ const Contact = () => {
                                             </span> */}
                                             <h2 className="text-xl font-bold text-white mb-3">Submit a Request</h2>
                                             <p className="text-sm leading-relaxed mb-6" style={{ color: 'rgba(255,255,255,0.7)' }}>
-                                                Tell us about your project, organization size, and goals. Our solutions team will review and respond within one business day with a tailored proposal.
+                                                Tell us about your project and goals. Our solutions team will review your requirements and respond within one business day with a tailored proposal.
                                             </p>
                                             {[
                                                 { icon: HiOutlineCheckCircle, text: 'Reviewed within 1 business day' },
@@ -276,7 +304,7 @@ const Contact = () => {
                                                     <p className="text-sm mb-6" style={{ color: 'var(--color-text-secondary)' }}>
                                                         Thank you, <strong>{formData.fullName}</strong>. Our team will review your request and reach out within one business day.
                                                     </p>
-                                                    <button onClick={() => { setFormSubmitted(false); setFormData({ fullName: '', company: '', email: '', phone: '', service: '', employees: '', message: '', budget: '' }); }}
+                                                    <button onClick={() => { setFormSubmitted(false); setFormData({ fullName: '', email: '', phone: '', service: '', message: '' }); }}
                                                         className="text-sm font-semibold underline" style={{ color: 'var(--color-primary)' }}>
                                                         Submit another request
                                                     </button>
@@ -287,20 +315,10 @@ const Contact = () => {
 
                                                     {/* Row 1 */}
                                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                                        <div className="flex flex-col gap-1.5">
+                                                        <div className="flex flex-col gap-1.5 sm:col-span-2">
                                                             <label className="text-xs font-semibold" style={{ color: 'var(--color-text-primary)' }}>Full Name *</label>
                                                             <input required name="fullName" value={formData.fullName} onChange={handleChange}
                                                                 placeholder="Jane Smith"
-                                                                className="px-4 py-2.5 rounded-lg text-sm outline-none transition-all"
-                                                                style={{ border: '1px solid rgba(0,102,255,0.18)', color: 'var(--color-text-primary)', background: '#f8fafc' }}
-                                                                onFocus={e => e.target.style.borderColor = 'var(--color-primary)'}
-                                                                onBlur={e => e.target.style.borderColor = 'rgba(0,102,255,0.18)'}
-                                                            />
-                                                        </div>
-                                                        <div className="flex flex-col gap-1.5">
-                                                            <label className="text-xs font-semibold" style={{ color: 'var(--color-text-primary)' }}>Company *</label>
-                                                            <input required name="company" value={formData.company} onChange={handleChange}
-                                                                placeholder="Acme Corp"
                                                                 className="px-4 py-2.5 rounded-lg text-sm outline-none transition-all"
                                                                 style={{ border: '1px solid rgba(0,102,255,0.18)', color: 'var(--color-text-primary)', background: '#f8fafc' }}
                                                                 onFocus={e => e.target.style.borderColor = 'var(--color-primary)'}
@@ -333,55 +351,20 @@ const Contact = () => {
                                                         </div>
                                                     </div>
 
-                                                    {/* Row 3 — Service & Org Size */}
-                                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                                        <div className="flex flex-col gap-1.5">
-                                                            <label className="text-xs font-semibold" style={{ color: 'var(--color-text-primary)' }}>Service of Interest *</label>
-                                                            <div className="relative">
-                                                                <select required name="service" value={formData.service} onChange={handleChange}
-                                                                    className="w-full appearance-none px-4 py-2.5 rounded-lg text-sm outline-none transition-all pr-8"
-                                                                    style={{ border: '1px solid rgba(0,102,255,0.18)', color: formData.service ? 'var(--color-text-primary)' : 'var(--color-text-muted)', background: '#f8fafc' }}
-                                                                    onFocus={e => e.target.style.borderColor = 'var(--color-primary)'}
-                                                                    onBlur={e => e.target.style.borderColor = 'rgba(0,102,255,0.18)'}
-                                                                >
-                                                                    <option value="">Select a service…</option>
-                                                                    {serviceOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-                                                                </select>
-                                                                <HiOutlineChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-xs" style={{ color: 'var(--color-text-muted)' }} />
-                                                            </div>
-                                                        </div>
-                                                        <div className="flex flex-col gap-1.5">
-                                                            <label className="text-xs font-semibold" style={{ color: 'var(--color-text-primary)' }}>Organisation Size</label>
-                                                            <div className="relative">
-                                                                <select name="employees" value={formData.employees} onChange={handleChange}
-                                                                    className="w-full appearance-none px-4 py-2.5 rounded-lg text-sm outline-none transition-all pr-8"
-                                                                    style={{ border: '1px solid rgba(0,102,255,0.18)', color: formData.employees ? 'var(--color-text-primary)' : 'var(--color-text-muted)', background: '#f8fafc' }}
-                                                                    onFocus={e => e.target.style.borderColor = 'var(--color-primary)'}
-                                                                    onBlur={e => e.target.style.borderColor = 'rgba(0,102,255,0.18)'}
-                                                                >
-                                                                    <option value="">Select size…</option>
-                                                                    {['1–50', '51–250', '251–1000', '1000–5000', '5000+'].map(s => <option key={s} value={s}>{s} employees</option>)}
-                                                                </select>
-                                                                <HiOutlineChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-xs" style={{ color: 'var(--color-text-muted)' }} />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Budget */}
+                                                    {/* Row 3 — Service */}
                                                     <div className="flex flex-col gap-1.5">
-                                                        <label className="text-xs font-semibold" style={{ color: 'var(--color-text-primary)' }}>Estimated Budget Range</label>
-                                                        <div className="flex flex-wrap gap-2">
-                                                            {['Under $25K', '$25K–$100K', '$100K–$500K', '$500K+', 'Not Sure'].map(opt => (
-                                                                <button type="button" key={opt} onClick={() => setFormData(f => ({ ...f, budget: opt }))}
-                                                                    className="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all"
-                                                                    style={{
-                                                                        background: formData.budget === opt ? 'var(--color-primary)' : '#f8fafc',
-                                                                        color: formData.budget === opt ? '#fff' : 'var(--color-text-secondary)',
-                                                                        border: `1px solid ${formData.budget === opt ? 'var(--color-primary)' : 'rgba(0,102,255,0.15)'}`,
-                                                                    }}>
-                                                                    {opt}
-                                                                </button>
-                                                            ))}
+                                                        <label className="text-xs font-semibold" style={{ color: 'var(--color-text-primary)' }}>Service of Interest *</label>
+                                                        <div className="relative">
+                                                            <select required name="service" value={formData.service} onChange={handleChange}
+                                                                className="w-full appearance-none px-4 py-2.5 rounded-lg text-sm outline-none transition-all pr-8"
+                                                                style={{ border: '1px solid rgba(0,102,255,0.18)', color: formData.service ? 'var(--color-text-primary)' : 'var(--color-text-muted)', background: '#f8fafc' }}
+                                                                onFocus={e => e.target.style.borderColor = 'var(--color-primary)'}
+                                                                onBlur={e => e.target.style.borderColor = 'rgba(0,102,255,0.18)'}
+                                                            >
+                                                                <option value="">Select a service…</option>
+                                                                {serviceOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+                                                            </select>
+                                                            <HiOutlineChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-xs" style={{ color: 'var(--color-text-muted)' }} />
                                                         </div>
                                                     </div>
 
@@ -465,6 +448,7 @@ const Contact = () => {
                                             href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
+                                            onClick={handleWhatsAppClick}
                                             className="inline-flex items-center gap-3 px-10 py-4 rounded-2xl text-base font-bold text-white shadow-xl transition-all hover:-translate-y-1 hover:shadow-2xl"
                                             style={{ background: 'linear-gradient(135deg, #25d366 0%, #128C7E 100%)' }}
                                         >

@@ -27,9 +27,9 @@ const CTASection = ({ isCalendarVisible, onScrollReveal }) => {
     };
 
     const benefits = [
-        { icon: HiOutlineClock, text: '30-minute focused session' },
-        { icon: HiOutlineVideoCamera, text: 'Live product walkthrough' },
-        { icon: HiOutlineUserGroup, text: 'Assigned specialist via round-robin' },
+        { icon: HiOutlineClock, text: 'Product Strategy Team' },
+        { icon: HiOutlineVideoCamera, text: 'Digital Transformation Consultants' },
+        { icon: HiOutlineUserGroup, text: 'Partnership Development Team' },
     ];
 
     return (
@@ -68,7 +68,7 @@ const CTASection = ({ isCalendarVisible, onScrollReveal }) => {
                                     A confirmation email with the calendar invite has been sent to you.
                                 </p>
                                 <button onClick={resetBooking} className="btn-primary text-sm px-8 py-2.5">
-                                    Book Another Demo
+                                    Book Another Session
                                 </button>
                             </div>
                         </motion.div>
@@ -94,12 +94,11 @@ const CTASection = ({ isCalendarVisible, onScrollReveal }) => {
                                         Free · 30 Minutes · No Commitment
                                     </span>
                                     <h2 className="text-2xl md:text-3xl font-black mt-2 mb-3" style={{ color: 'var(--color-text-primary)', letterSpacing: '-0.02em' }}>
-                                        Ready to Build Your{' '}
-                                        <span className="text-gradient">AI-Powered Ecosystem?</span>
+                                        Consultation & {' '}
+                                        <span className="text-gradient">Engagement</span>
                                     </h2>
                                     <p className="text-sm leading-relaxed mb-6" style={{ color: 'var(--color-text-secondary)' }}>
-                                        Join enterprises and partners scaling innovation through AI automation,
-                                        intelligent platforms, and strategic ecosystems.
+                                        Organizations can engage with Nebulytix experts to explore technology strategies, partnership opportunities, and digital transformation initiatives.
                                     </p>
                                     <div className="flex flex-col sm:flex-row flex-wrap gap-y-2 gap-x-5 justify-center lg:justify-start">
                                         {benefits.map((b, i) => (
@@ -118,7 +117,7 @@ const CTASection = ({ isCalendarVisible, onScrollReveal }) => {
                                         className="btn-primary text-sm px-8 py-3 flex items-center gap-2 whitespace-nowrap"
                                     >
                                         <HiCalendar size={18} />
-                                        Book a Product Demo
+                                        Schedule a Strategy Session
                                     </button>
                                 </div>
                             </div>
@@ -144,13 +143,13 @@ const CTASection = ({ isCalendarVisible, onScrollReveal }) => {
                                     <div>
                                         <span className="text-xs font-bold uppercase tracking-widest px-2.5 py-1 rounded-full mb-4 inline-block"
                                             style={{ background: 'rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.9)', border: '1px solid rgba(255,255,255,0.15)' }}>
-                                            Product Demo
+                                            Strategy Session
                                         </span>
                                         <h2 className="text-2xl font-black leading-snug mb-3 text-white">
-                                            Book a Product Demo
+                                            Schedule Consultation
                                         </h2>
                                         <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.72)' }}>
-                                            See our AI automation platform in action. A Nebulytix specialist will be automatically assigned to guide you through our solutions.
+                                            Book a one-on-one consultation with the Nebulytix team to discuss your business challenges, technology requirements, and transformation goals.
                                         </p>
                                     </div>
 
@@ -204,7 +203,7 @@ const CTASection = ({ isCalendarVisible, onScrollReveal }) => {
                     )}
                 </AnimatePresence>
             </div>
-        </section>
+        </section >
     );
 };
 

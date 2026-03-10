@@ -1,39 +1,24 @@
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import {
-  HiOutlineUsers,
   HiOutlineBriefcase,
-  HiOutlineDocumentText,
-  HiOutlineMail,
+  HiOutlineFolder,
+  HiOutlineUsers,
+  HiOutlineViewGridAdd,
+  HiOutlinePlus
 } from 'react-icons/hi'
-import {
-  LineChart,
-  Line,
-  AreaChart,
-  Area,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-} from 'recharts'
 import api from '../../services/api'
-import DashboardStats from '../../components/admin/DashboardStats'
 import toast from 'react-hot-toast'
 
 const Dashboard = () => {
   const [stats, setStats] = useState({
     totalLeads: 0,
     totalJobs: 0,
-    totalApplications: 0,
     totalProjects: 0,
-    newLeads: 0,
+    totalServices: 0,
+    totalPartners: 0,
   })
   const [recentLeads, setRecentLeads] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -45,24 +30,22 @@ const Dashboard = () => {
   const fetchDashboardData = async () => {
     try {
       setIsLoading(true)
-      
-      // Fetch all data in parallel
-      const [leadsRes, jobsRes, applicationsRes, projectsRes] = await Promise.all([
-        api.get('/admin/leads?page=0&size=5'),
-        api.get('/hr/jobs?page=0&size=100'),
-        api.get('/hr/applications?page=0&size=100'),
-        api.get('/admin/projects?page=0&size=100'),
-      ])
+
+      const leadsRes = await api.get('/admin/leads?page=0&size=5').catch(() => ({ data: { data: { totalElements: 0, content: [] } } }));
+      const jobsRes = await api.get('/hr/jobs?page=0&size=100').catch(() => ({ data: { data: { totalElements: 0 } } }));
+      const projectsRes = await api.get('/admin/projects?page=0&size=100').catch(() => ({ data: { data: { totalElements: 0 } } }));
+      const servicesRes = await api.get('/admin/services?page=0&size=100').catch(() => ({ data: { data: { totalElements: 0 } } }));
+      const partnersRes = await api.get('/admin/partners?page=0&size=100').catch(() => ({ data: { data: { totalElements: 0 } } }));
 
       setStats({
-        totalLeads: leadsRes.data.data.totalElements || 0,
-        totalJobs: jobsRes.data.data.totalElements || 0,
-        totalApplications: applicationsRes.data.data.totalElements || 0,
-        totalProjects: projectsRes.data.data.totalElements || 0,
-        newLeads: leadsRes.data.data.content?.filter(l => l.status === 'NEW').length || 0,
+        totalLeads: leadsRes.data?.data?.totalElements || 0,
+        totalJobs: jobsRes.data?.data?.totalElements || 0,
+        totalProjects: projectsRes.data?.data?.totalElements || 0,
+        totalServices: servicesRes.data?.data?.totalElements || 0,
+        totalPartners: partnersRes.data?.data?.totalElements || 0,
       })
 
-      setRecentLeads(leadsRes.data.data.content?.slice(0, 5) || [])
+      setRecentLeads(leadsRes.data?.data?.content?.slice(0, 5) || [])
     } catch (error) {
       toast.error('Failed to fetch dashboard data')
       console.error('Dashboard error:', error)
@@ -71,54 +54,44 @@ const Dashboard = () => {
     }
   }
 
-  // Sample chart data
-  const leadTrendData = [
-    { name: 'Mon', leads: 4 },
-    { name: 'Tue', leads: 7 },
-    { name: 'Wed', leads: 5 },
-    { name: 'Thu', leads: 8 },
-    { name: 'Fri', leads: 6 },
-    { name: 'Sat', leads: 3 },
-    { name: 'Sun', leads: 2 },
-  ]
-
-  const leadSourceData = [
-    { name: 'Contact Form', value: 65 },
-    { name: 'WhatsApp', value: 35 },
-  ]
-
-  const COLORS = ['#3b82f6', '#10b981']
-
-  const statsCards = [
+  const managementActions = [
     {
-      title: 'Total Leads',
-      value: stats.totalLeads,
-      icon: HiOutlineUsers,
-      change: '+12%',
-      color: 'blue',
+      title: 'Manage Projects',
+      description: 'Add or edit your portfolio projects.',
+      icon: HiOutlineFolder,
+      path: '/admin/projects',
+      count: stats.totalProjects,
+      color: 'bg-blue-500',
+      lightColor: 'bg-blue-50 text-blue-600',
     },
     {
-      title: 'Active Jobs',
-      value: stats.totalJobs,
+      title: 'Manage Jobs',
+      description: 'Post and manage active job listings.',
       icon: HiOutlineBriefcase,
-      change: '+5%',
-      color: 'green',
+      path: '/admin/jobs',
+      count: stats.totalJobs,
+      color: 'bg-green-500',
+      lightColor: 'bg-green-50 text-green-600',
     },
     {
-      title: 'Applications',
-      value: stats.totalApplications,
-      icon: HiOutlineDocumentText,
-      change: '+23%',
-      color: 'purple',
+      title: 'Manage Services',
+      description: 'Update your service offerings and details.',
+      icon: HiOutlineViewGridAdd,
+      path: '/admin/services',
+      count: stats.totalServices,
+      color: 'bg-purple-500',
+      lightColor: 'bg-purple-50 text-purple-600',
     },
     {
-      title: 'New Leads',
-      value: stats.newLeads,
-      icon: HiOutlineMail,
-      change: '+8%',
-      color: 'orange',
+      title: 'Manage Partners',
+      description: 'Add new integration or business partners.',
+      icon: HiOutlineUsers,
+      path: '/admin/partners',
+      count: stats.totalPartners,
+      color: 'bg-orange-500',
+      lightColor: 'bg-orange-50 text-orange-600',
     },
-  ]
+  ];
 
   if (isLoading) {
     return (
@@ -131,95 +104,59 @@ const Dashboard = () => {
   return (
     <>
       <Helmet>
-        <title>Dashboard - Nebulytix Admin</title>
+        <title>Action Hub - Nebulytix Admin</title>
       </Helmet>
 
-      <div className="space-y-6">
+      <div className="space-y-8">
         {/* Header */}
         <div>
-          <h1 className="text-2xl font-bold text-secondary-900">Dashboard</h1>
-          <p className="text-secondary-600">Welcome back! Here's what's happening with your business.</p>
+          <h1 className="text-2xl font-bold text-secondary-900">Admin Action Hub</h1>
+          <p className="text-secondary-600">Quickly add and manage your critical website data</p>
         </div>
 
-        {/* Stats Cards */}
+        {/* Quick Actions Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {statsCards.map((stat, index) => (
-            <DashboardStats key={index} stat={stat} />
+          {managementActions.map((action, index) => (
+            <motion.div
+              key={action.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              className="bg-white rounded-2xl shadow-lg border border-secondary-100 p-6 flex flex-col justify-between"
+            >
+              <div>
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${action.lightColor}`}>
+                  <action.icon className="text-2xl" />
+                </div>
+                <h3 className="text-lg font-bold text-secondary-900 mb-1">{action.title}</h3>
+                <p className="text-sm text-secondary-600 mb-4 h-10">{action.description}</p>
+                <div className="text-2xl font-black text-secondary-900 mb-6 flex items-center gap-2">
+                  {action.count} <span className="text-xs font-semibold text-secondary-400 uppercase tracking-wide">Entries</span>
+                </div>
+              </div>
+
+              <Link
+                to={action.path}
+                className="btn-primary w-full flex items-center justify-center py-2.5"
+              >
+                <HiOutlinePlus className="mr-2" />
+                Add New
+              </Link>
+            </motion.div>
           ))}
         </div>
 
-        {/* Charts Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Lead Trend Chart */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="bg-white rounded-xl shadow-lg p-6"
-          >
-            <h2 className="text-lg font-semibold mb-4">Lead Trend (Last 7 Days)</h2>
-            <ResponsiveContainer width="100%" height={300}>
-              <AreaChart data={leadTrendData}>
-                <defs>
-                  <linearGradient id="leadGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3}/>
-                    <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                <XAxis dataKey="name" stroke="#64748b" />
-                <YAxis stroke="#64748b" />
-                <Tooltip />
-                <Area
-                  type="monotone"
-                  dataKey="leads"
-                  stroke="#3b82f6"
-                  strokeWidth={2}
-                  fill="url(#leadGradient)"
-                />
-              </AreaChart>
-            </ResponsiveContainer>
-          </motion.div>
-
-          {/* Lead Source Chart */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="bg-white rounded-xl shadow-lg p-6"
-          >
-            <h2 className="text-lg font-semibold mb-4">Lead Sources</h2>
-            <ResponsiveContainer width="100%" height={300}>
-              <PieChart>
-                <Pie
-                  data={leadSourceData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={60}
-                  outerRadius={100}
-                  fill="#8884d8"
-                  paddingAngle={5}
-                  dataKey="value"
-                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                >
-                  {leadSourceData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip />
-              </PieChart>
-            </ResponsiveContainer>
-          </motion.div>
-        </div>
-
-        {/* Recent Leads Table */}
+        {/* Recent Leads Table (Kept for Utility) */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="bg-white rounded-xl shadow-lg p-6"
+          transition={{ delay: 0.4 }}
+          className="bg-white rounded-xl shadow-lg border border-secondary-100 p-6"
         >
-          <h2 className="text-lg font-semibold mb-4">Recent Leads</h2>
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-lg font-semibold">Latest Incoming Leads</h2>
+            <Link to="/admin/leads" className="text-sm font-semibold text-primary-600 hover:text-primary-700">View All →</Link>
+          </div>
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-secondary-200">
               <thead className="bg-secondary-50">
@@ -234,15 +171,12 @@ const Dashboard = () => {
                     Source
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
                     Date
                   </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-secondary-200">
-                {recentLeads.map((lead) => (
+                {recentLeads.length > 0 ? recentLeads.map((lead) => (
                   <tr key={lead.id} className="hover:bg-secondary-50">
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-secondary-900">
                       {lead.name || 'N/A'}
@@ -251,30 +185,24 @@ const Dashboard = () => {
                       {lead.email || 'N/A'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        lead.source === 'WHATSAPP_CLICK' 
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${lead.source === 'WHATSAPP_CLICK'
                           ? 'bg-green-100 text-green-800'
                           : 'bg-blue-100 text-blue-800'
-                      }`}>
+                        }`}>
                         {lead.source === 'WHATSAPP_CLICK' ? 'WhatsApp' : 'Contact Form'}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm">
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        lead.status === 'NEW' 
-                          ? 'bg-yellow-100 text-yellow-800'
-                          : lead.status === 'CONTACTED'
-                          ? 'bg-blue-100 text-blue-800'
-                          : 'bg-green-100 text-green-800'
-                      }`}>
-                        {lead.status}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-600">
                       {new Date(lead.createdAt).toLocaleDateString()}
                     </td>
                   </tr>
-                ))}
+                )) : (
+                  <tr>
+                    <td colSpan="4" className="px-6 py-8 text-center text-secondary-500">
+                      No leads found.
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>

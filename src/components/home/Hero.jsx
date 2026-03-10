@@ -65,13 +65,10 @@ const Hero = ({ onBookingOpen }) => {
           transition={{ duration: 0.55, delay: 0.35 }}
           className="flex flex-wrap justify-center gap-3 mb-16"
         >
-          <button
-            onClick={() => onBookingOpen()}
-            className="btn-primary group text-sm px-7 py-3"
-          >
-            Book a Product Demo
+          <Link to="/services" className="btn-primary group text-sm px-7 py-3">
+            Explore Solutions
             <HiArrowRight className="group-hover:translate-x-1 transition-transform" />
-          </button>
+          </Link>
           <Link to="/partners" className="btn-secondary text-sm px-7 py-3">
             <HiOutlineUserGroup />
             Become a Partner

@@ -23,6 +23,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const menuItems = [
     { path: '/admin', icon: HiOutlineHome, label: 'Dashboard' },
     { path: '/admin/leads', icon: HiOutlineMail, label: 'Leads' },
+    { path: '/admin/services', icon: HiOutlineFolder, label: 'Services' },
     { path: '/admin/projects', icon: HiOutlineFolder, label: 'Projects' },
     { path: '/admin/jobs', icon: HiOutlineBriefcase, label: 'Jobs' },
     { path: '/admin/applications', icon: HiOutlineDocumentText, label: 'Applications' },
