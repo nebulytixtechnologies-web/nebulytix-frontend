@@ -241,7 +241,7 @@ const Careers = () => {
       <main>
 
         {/* ── HERO ────────────────────────────────────────────── */}
-        <section className="pt-36 pb-24 relative overflow-hidden" style={{ background: 'var(--color-bg)' }}>
+        <section className="pt-36 pb-24 relative overflow-hidden" style={{ background: 'var(--color-page-bg)' }}>
           <div className="glow-orb" style={{ width: 800, height: 700, top: '-25%', left: '50%', transform: 'translateX(-50%)', background: 'radial-gradient(circle, rgba(0,102,255,0.09) 0%, transparent 70%)' }} />
           <div className="container-custom relative z-10 text-center">
             <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }}>
@@ -277,7 +277,7 @@ const Careers = () => {
         </section>
 
         {/* ── SECTION 1: OPEN POSITIONS ────────────────────── */}
-        <section className="py-20" id="open-positions" style={{ background: 'var(--color-bg-surface)' }}>
+        <section className="py-20" id="open-positions" style={{ background: 'var(--color-page-surface)' }}>
           <div className="container-custom">
             <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10">
               <span className="section-eyebrow" style={{ color: 'var(--color-primary)', background: 'rgba(0,102,255,0.06)', border: '1px solid rgba(0,102,255,0.12)' }}>
@@ -356,7 +356,7 @@ const Careers = () => {
         </section>
 
         {/* ── SECTION 2: INNOVATION CULTURE ────────────────── */}
-        <section className="py-20" style={{ background: 'var(--color-bg)' }}>
+        <section className="py-20" style={{ background: 'var(--color-page-bg)' }}>
           <div className="container-custom">
             <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-14">
               <span className="section-eyebrow" style={{ color: 'var(--color-accent)', background: 'rgba(0,200,255,0.07)', border: '1px solid rgba(0,200,255,0.15)' }}>
@@ -406,7 +406,7 @@ const Careers = () => {
         </section>
 
         {/* ── SECTION 3: DEVELOPER COMMUNITY ───────────────── */}
-        <section className="py-20" style={{ background: 'var(--color-bg-surface)' }}>
+        <section className="py-20" style={{ background: 'var(--color-page-surface)' }}>
           <div className="container-custom">
             <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-14">
               <span className="section-eyebrow" style={{ color: 'var(--color-primary)', background: 'rgba(0,102,255,0.06)', border: '1px solid rgba(0,102,255,0.12)' }}>
@@ -470,7 +470,7 @@ const Careers = () => {
         </section>
 
         {/* ── FINAL CTA ─────────────────────────────────────── */}
-        <section className="py-20 relative overflow-hidden" style={{ background: 'var(--color-bg)' }}>
+        <section className="py-20 relative overflow-hidden" style={{ background: 'var(--color-page-bg)' }}>
           <div className="glow-orb" style={{ width: 600, height: 500, top: '50%', left: '50%', transform: 'translate(-50%,-50%)', background: 'radial-gradient(circle, rgba(0,102,255,0.06) 0%, transparent 70%)' }} />
           <div className="container-custom relative z-10 text-center max-w-2xl mx-auto">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>

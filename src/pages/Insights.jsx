@@ -164,7 +164,7 @@ const Insights = () => {
 
             <main>
                 {/* ── HERO ──────────────────────────────────────────── */}
-                <section className="pt-36 pb-20 relative overflow-hidden" style={{ background: 'var(--color-bg)' }}>
+                <section className="pt-36 pb-20 relative overflow-hidden" style={{ background: 'var(--color-page-bg)' }}>
                     <div className="glow-orb" style={{ width: 800, height: 700, top: '-25%', left: '50%', transform: 'translateX(-50%)', background: 'radial-gradient(circle, rgba(0,102,255,0.09) 0%, transparent 70%)' }} />
                     <div className="container-custom relative z-10 text-center">
                         <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }}>
@@ -190,7 +190,7 @@ const Insights = () => {
                 </section>
 
                 {/* ── CONTENT HUB ────────────────────────────────────── */}
-                <section className="py-12 pb-24 relative" style={{ background: 'var(--color-bg-surface)' }}>
+                <section className="py-12 pb-24 relative" style={{ background: 'var(--color-page-surface)' }}>
                     <div className="container-custom">
 
                         {/* Filter Tabs */}
@@ -279,7 +279,7 @@ const Insights = () => {
                 </section>
 
                 {/* ── CTA SUBSCRIBER ──────────────────────────────────────── */}
-                <section className="py-20 relative overflow-hidden" style={{ background: 'var(--color-bg)' }}>
+                <section className="py-20 relative overflow-hidden" style={{ background: 'var(--color-page-bg)' }}>
                     <div className="container-custom relative z-10 max-w-4xl mx-auto rounded-3xl p-10 md:p-14 text-center text-white shadow-2xl"
                         style={{ background: 'linear-gradient(160deg, #0a2560 0%, #0066ff 100%)' }}>
                         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>

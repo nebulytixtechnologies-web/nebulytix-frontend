@@ -1,15 +1,15 @@
 import { Link } from 'react-router-dom'
-import { FaLinkedin, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa'
+import { FaLinkedin, FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa'
+import { HiOutlineMail, HiOutlineCalendar } from 'react-icons/hi'
 import WhatsAppFloat from './WhatsAppFloat'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
 
   const socialLinks = [
-    { icon: FaLinkedin, href: '#', label: 'LinkedIn' },
-    { icon: FaTwitter, href: '#', label: 'Twitter' },
-    { icon: FaInstagram, href: '#', label: 'Instagram' },
-    { icon: FaYoutube, href: '#', label: 'YouTube' },
+    { icon: FaLinkedin, href: 'https://www.linkedin.com/in/nebulytix-technologies-b77894393/', label: 'LinkedIn' },
+    { icon: FaFacebook, href: 'https://www.facebook.com/profile.php?id=61583812475808', label: 'Facebook' },
+    { icon: FaInstagram, href: 'https://www.instagram.com/nebulytix_technologies?igsh=Y291MDR2Nnd2eWpy', label: 'Instagram' },
   ]
 
   return (
@@ -22,10 +22,9 @@ const Footer = () => {
           {/* Company Info */}
           <div className="lg:col-span-2">
             <div className="mb-4">
-              <Link to="/" className="logo scale-90 md:scale-100 origin-left shrink-0 mr-4 xl:mr-8 flex items-center">
-                <img src="/src/assets/logo.png" alt="Nebulytix Technologies" className="-my-4 shrink-0"
-                  style={{ filter: 'drop-shadow(0 0 10px rgba(26, 95, 255, 0.55))' }} />
-                <span className="logo-text mt-2">NEBULYTIX</span>
+              <Link to="/" className="logo navbar-logo scale-90 md:scale-100 origin-left shrink-0 mr-4 xl:mr-8 flex items-center">
+                <img src="/src/assets/logo.png" alt="Nebulytix Technologies" className="-my-4 shrink-0" />
+                <span className="logo-text hidden sm:block mt-2">NEBULYTIX</span>
               </Link>
             </div>
             <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--color-text-muted)' }}>
@@ -99,30 +98,32 @@ const Footer = () => {
             <ul className="space-y-3 text-sm" style={{ color: 'var(--color-text-muted)' }}>
               <li>
                 <a href="mailto:info@nebulytix.com"
+                  className="flex items-center gap-2 transition-colors"
                   style={{ color: 'var(--color-text-muted)' }}
                   onMouseEnter={e => e.currentTarget.style.color = 'var(--color-accent)'}
                   onMouseLeave={e => e.currentTarget.style.color = 'var(--color-text-muted)'}
                 >
-                  ✉️ info@nebulytix.com
+                  <HiOutlineMail className="text-lg" /> info@nebulytix.com
                 </a>
               </li>
               <li>
                 <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer"
+                  className="flex items-center gap-2 transition-colors"
                   style={{ color: 'var(--color-text-muted)' }}
                   onMouseEnter={e => e.currentTarget.style.color = 'var(--color-accent)'}
                   onMouseLeave={e => e.currentTarget.style.color = 'var(--color-text-muted)'}
                 >
-                  💬 WhatsApp Us
+                  <FaWhatsapp className="text-lg" /> WhatsApp Us
                 </a>
               </li>
               <li>
                 <Link to="/contact"
-                  className="text-sm"
+                  className="text-sm flex items-center gap-2 transition-colors"
                   style={{ color: 'var(--color-text-muted)' }}
                   onMouseEnter={e => e.currentTarget.style.color = 'var(--color-accent)'}
                   onMouseLeave={e => e.currentTarget.style.color = 'var(--color-text-muted)'}
                 >
-                  📅 Book a Consultation
+                  <HiOutlineCalendar className="text-lg" /> Book a Consultation
                 </Link>
               </li>
             </ul>
