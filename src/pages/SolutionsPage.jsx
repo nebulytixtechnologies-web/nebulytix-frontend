@@ -32,7 +32,7 @@ const SolutionsPage = () => {
             <Navbar />
             <main>
                 {/* Hero */}
-                <section className="pt-36 pb-24 relative overflow-hidden" style={{ background: 'var(--color-bg)' }}>
+                <section className="pt-36 pb-24 relative overflow-hidden" style={{ background: 'var(--color-page-bg)' }}>
                     <div className="glow-orb" style={{ width: 700, height: 600, top: '-20%', left: '50%', transform: 'translateX(-50%)', background: 'radial-gradient(circle, rgba(26,95,255,0.1) 0%, transparent 70%)' }} />
                     <div className="container-custom relative z-10 text-center">
                         <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }}>
@@ -55,7 +55,7 @@ const SolutionsPage = () => {
                 </section>
 
                 {/* Solution Areas */}
-                <section className="py-20" style={{ background: 'var(--color-bg-surface)' }}>
+                <section className="py-20" style={{ background: 'var(--color-page-surface)' }}>
                     <div className="container-custom">
                         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-14">
                             <h2 className="section-title">Our Solution <span className="text-gradient">Portfolio</span></h2>
@@ -92,7 +92,7 @@ const SolutionsPage = () => {
                 </section>
 
                 {/* Automation Use Cases */}
-                <section className="py-20" style={{ background: 'var(--color-bg)' }}>
+                <section className="py-20" style={{ background: 'var(--color-page-bg)' }}>
                     <div className="container-custom">
                         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-12">
                             <span className="section-eyebrow" style={{ color: 'var(--color-accent)', background: 'rgba(0,200,255,0.07)', border: '1px solid rgba(0,200,255,0.15)' }}>Automation</span>
@@ -113,7 +113,7 @@ const SolutionsPage = () => {
                 </section>
 
                 {/* AI Adoption Journey */}
-                <section className="py-20" style={{ background: 'var(--color-bg-surface)' }}>
+                <section className="py-20" style={{ background: 'var(--color-page-surface)' }}>
                     <div className="container-custom">
                         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-14">
                             <h2 className="section-title">Enterprise AI <span className="text-gradient">Adoption Journey</span></h2>

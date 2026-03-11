@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { HiOutlineBadgeCheck, HiOutlineLibrary, HiOutlineCash, HiOutlineOfficeBuilding, HiOutlineAcademicCap, HiOutlineShoppingBag, HiOutlineChip } from 'react-icons/hi';
+import { HiOutlineBadgeCheck } from 'react-icons/hi';
 
 const Testimonials = () => {
   const achievements = [
@@ -10,14 +10,7 @@ const Testimonials = () => {
     "Scalable AI-driven systems and platforms"
   ];
 
-  const industries = [
-    { name: 'Healthcare', icon: HiOutlineLibrary },
-    { name: 'Financial Services', icon: HiOutlineCash },
-    { name: 'Government & Public Sector', icon: HiOutlineOfficeBuilding },
-    { name: 'Education', icon: HiOutlineAcademicCap },
-    { name: 'Retail', icon: HiOutlineShoppingBag },
-    { name: 'Enterprise Technology', icon: HiOutlineChip }
-  ];
+
 
   return (
     <section className="py-24 relative overflow-hidden" style={{ background: 'var(--color-bg)' }}>
@@ -68,40 +61,7 @@ const Testimonials = () => {
           </motion.div>
         </div>
 
-        {/* Industries We Serve */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <span className="section-eyebrow" style={{ color: 'var(--color-accent)', background: 'rgba(0,200,255,0.06)', border: '1px solid rgba(0,200,255,0.12)' }}>
-            Industries
-          </span>
-          <h2 className="section-title mt-3"><span className="text-gradient" style={{ backgroundImage: 'linear-gradient(to right, var(--color-accent), #00e5ff)' }}>Industries We Serve</span></h2>
-          <p className="max-w-2xl mx-auto text-base" style={{ color: 'var(--color-text-secondary)' }}>
-            Nebulytix delivers intelligent technology solutions across multiple industries.
-          </p>
-        </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {industries.map((ind, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.05 }}
-              className="flex flex-col items-center text-center p-6 rounded-2xl group hover:-translate-y-1 transition-transform duration-300"
-              style={{ background: '#ffffff', border: '1px solid rgba(0,102,255,0.08)', boxShadow: '0 4px 12px rgba(0,0,0,0.02)' }}
-            >
-              <div className="w-12 h-12 rounded-full flex items-center justify-center mb-4 transition-colors" style={{ background: 'rgba(0,102,255,0.05)', color: 'var(--color-primary)' }}>
-                <ind.icon size={24} />
-              </div>
-              <h4 className="text-sm font-bold" style={{ color: 'var(--color-text-primary)' }}>{ind.name}</h4>
-            </motion.div>
-          ))}
-        </div>
 
       </div>
     </section>

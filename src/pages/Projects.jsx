@@ -50,7 +50,7 @@ const Projects = () => {
       <Navbar />
       <main>
         {/* Hero */}
-        <section className="pt-32 pb-20 relative overflow-hidden" style={{ background: 'var(--color-bg)' }}>
+        <section className="pt-32 pb-20 relative overflow-hidden" style={{ background: 'var(--color-page-bg)' }}>
           <div className="glow-orb" style={{ width: 600, height: 600, top: '-20%', left: '50%', transform: 'translateX(-50%)', background: 'radial-gradient(circle, rgba(224,64,251,0.18) 0%, transparent 70%)' }} />
           <div className="container-custom relative z-10">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center max-w-3xl mx-auto">
@@ -65,7 +65,7 @@ const Projects = () => {
         </section>
 
         {/* Projects */}
-        <section className="py-20 relative" style={{ background: 'var(--color-bg-surface)' }}>
+        <section className="py-20 relative" style={{ background: 'var(--color-page-surface)' }}>
           <div className="container-custom relative z-10">
             {/* Filter */}
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-12">
@@ -131,7 +131,7 @@ const Projects = () => {
         </section>
 
         {/* CTA */}
-        <section className="py-20 relative overflow-hidden" style={{ background: 'var(--color-bg)' }}>
+        <section className="py-20 relative overflow-hidden" style={{ background: 'var(--color-page-bg)' }}>
           <div className="glow-orb" style={{ width: 600, height: 600, top: '50%', left: '50%', transform: 'translate(-50%,-50%)', background: 'radial-gradient(circle, rgba(0,229,255,0.18) 0%, transparent 65%)' }} />
           <div className="container-custom text-center relative z-10">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>

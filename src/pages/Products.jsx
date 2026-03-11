@@ -16,7 +16,7 @@ const Products = () => {
             <Navbar />
             <main>
                 {/* Hero Section */}
-                <section className="pt-32 pb-20 relative overflow-hidden" style={{ background: 'var(--color-bg)' }}>
+                <section className="pt-32 pb-20 relative overflow-hidden" style={{ background: 'var(--color-page-bg)' }}>
                     <div className="glow-orb" style={{ width: 800, height: 800, top: '-30%', left: '50%', transform: 'translateX(-50%)', background: 'radial-gradient(circle, rgba(0,102,255,0.12) 0%, transparent 60%)' }} />
                     <div className="container-custom relative z-10 text-center">
                         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-4xl mx-auto">
@@ -34,7 +34,7 @@ const Products = () => {
                 </section>
 
                 {/* Overview */}
-                <section className="py-16 relative overflow-hidden" style={{ background: 'var(--color-bg-surface)' }}>
+                <section className="py-16 relative overflow-hidden" style={{ background: 'var(--color-page-surface)' }}>
                     <div className="container-custom text-center max-w-4xl mx-auto">
                         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
                             <p className="text-base md:text-lg mb-6 leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
@@ -48,7 +48,7 @@ const Products = () => {
                 </section>
 
                 {/* AI Agents and Workflow Automation */}
-                <section className="py-24 relative overflow-hidden" style={{ background: 'var(--color-bg)' }}>
+                <section className="py-24 relative overflow-hidden" style={{ background: 'var(--color-page-bg)' }}>
                     <div className="container-custom">
                         <div className="grid lg:grid-cols-2 gap-16 items-center">
                             <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
@@ -92,7 +92,7 @@ const Products = () => {
                 </section>
 
                 {/* Enterprise Use Cases & Integration */}
-                <section className="py-24 relative overflow-hidden" style={{ background: 'var(--color-bg-surface)' }}>
+                <section className="py-24 relative overflow-hidden" style={{ background: 'var(--color-page-surface)' }}>
                     <div className="container-custom">
                         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
 
@@ -153,7 +153,7 @@ const Products = () => {
                 </section>
 
                 {/* CTA */}
-                <section className="py-24 relative overflow-hidden" style={{ background: 'var(--color-bg)' }}>
+                <section className="py-24 relative overflow-hidden" style={{ background: 'var(--color-page-bg)' }}>
                     <div className="container-custom text-center relative z-10">
                         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
                             <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: 'var(--color-text-primary)' }}>Ready to Deploy Intelligent Automation?</h2>

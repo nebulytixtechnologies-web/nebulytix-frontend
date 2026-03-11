@@ -3,39 +3,29 @@ import { Helmet } from 'react-helmet-async'
 import Navbar from '../components/common/Navbar'
 import Footer from '../components/common/Footer'
 import Hero from '../components/home/Hero'
-import ValueProp from '../components/home/ValueProp'
+import VisionMission from '../components/home/VisionMission'
 import CorePlatforms from '../components/home/CorePlatforms'
-import Solutions from '../components/home/Services'
+import SolutionsSection from '../components/home/SolutionsSection'
+import IndustriesSection from '../components/home/IndustriesSection'
 import PartnerEcosystem from '../components/home/PartnerEcosystem'
+import CommunitySection from '../components/home/CommunitySection'
 import Testimonials from '../components/home/Testimonials'
-import CTASection from '../components/home/CTASection'
+import InsightsSection from '../components/home/InsightsSection'
+import ContactSection from '../components/home/ContactSection'
 
 const Home = () => {
-  const [isCalendarVisible, setIsCalendarVisible] = useState(false)
 
-  const scrollToCTA = () => {
-    // First scroll to section, then reveal the widget
-    const ctaSection = document.getElementById('cta-section')
-    if (ctaSection) {
-      ctaSection.scrollIntoView({ behavior: 'smooth' })
-    }
-    // Slight delay so scroll finishes before widget appears
-    setTimeout(() => setIsCalendarVisible(true), 400)
-  }
-
-  const toggleCalendar = () => {
-    setIsCalendarVisible(prev => !prev)
-    if (isCalendarVisible) {
-      // Collapsing — scroll back to top of section cleanly
-      const ctaSection = document.getElementById('cta-section')
-      if (ctaSection) ctaSection.scrollIntoView({ behavior: 'smooth' })
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact')
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' })
     }
   }
 
   // Handle hash navigation for navbar clicks on other pages
   useEffect(() => {
-    if (window.location.hash === '#cta-section') {
-      scrollToCTA()
+    if (window.location.hash === '#contact') {
+      scrollToContact()
     }
   }, [])
 
@@ -47,19 +37,19 @@ const Home = () => {
         <meta name="keywords" content="AI automation, digital transformation, enterprise AI, partner ecosystem, AI upskilling, AI consulting" />
       </Helmet>
 
-      <Navbar onBookingOpen={scrollToCTA} />
+      <Navbar onBookingOpen={scrollToContact} />
 
       <main>
-        <Hero onBookingOpen={scrollToCTA} />
-        <ValueProp />
+        <Hero onBookingOpen={scrollToContact} />
+        <VisionMission />
         <CorePlatforms />
-        <Solutions />
+        <SolutionsSection />
+        <IndustriesSection />
         <PartnerEcosystem />
+        <CommunitySection />
         <Testimonials />
-        <CTASection
-          isCalendarVisible={isCalendarVisible}
-          onScrollReveal={toggleCalendar}
-        />
+        <InsightsSection />
+        <ContactSection />
       </main>
 
       <Footer />

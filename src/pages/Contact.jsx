@@ -115,7 +115,7 @@ const Contact = () => {
             <main>
 
                 {/* ── HERO ────────────────────────────────────────────── */}
-                <section className="pt-36 pb-20 relative overflow-hidden" style={{ background: 'var(--color-bg)' }}>
+                <section className="pt-36 pb-20 relative overflow-hidden" style={{ background: 'var(--color-page-bg)' }}>
                     <div className="glow-orb" style={{ width: 800, height: 700, top: '-25%', left: '50%', transform: 'translateX(-50%)', background: 'radial-gradient(circle, rgba(0,102,255,0.09) 0%, transparent 70%)' }} />
                     <div className="container-custom relative z-10 text-center">
                         <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }}>
@@ -141,7 +141,7 @@ const Contact = () => {
                 </section>
 
                 {/* ── MAIN CONTENT ────────────────────────────────────── */}
-                <section className="pb-24 relative" style={{ background: 'var(--color-bg-surface)' }}>
+                <section className="pb-24 relative" style={{ background: 'var(--color-page-surface)' }}>
                     <div className="container-custom max-w-6xl">
 
                         {/* Tab Switcher */}

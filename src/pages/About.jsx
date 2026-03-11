@@ -12,7 +12,7 @@ import {
 const About = () => {
 
     const PageHero = ({ title, accent, subtitle }) => (
-        <section className="pt-32 pb-20 relative overflow-hidden" style={{ background: 'var(--color-bg)' }}>
+        <section className="pt-32 pb-20 relative overflow-hidden" style={{ background: 'var(--color-page-bg)' }}>
             <div className="glow-orb" style={{ width: 600, height: 600, top: '-20%', left: '50%', transform: 'translateX(-50%)', background: 'radial-gradient(circle, rgba(26,95,255,0.15) 0%, transparent 70%)' }} />
             <div className="container-custom relative z-10">
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center max-w-4xl mx-auto">
@@ -42,7 +42,7 @@ const About = () => {
                 />
 
                 {/* About Intro Section */}
-                <section className="py-12 relative overflow-hidden" style={{ background: 'var(--color-bg)' }}>
+                <section className="py-12 relative overflow-hidden" style={{ background: 'var(--color-page-bg)' }}>
                     <div className="container-custom">
                         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-4xl mx-auto text-center">
                             <p className="text-lg leading-relaxed mb-6" style={{ color: 'var(--color-text-secondary)' }}>
@@ -56,7 +56,7 @@ const About = () => {
                 </section>
 
                 {/* Vision & Mission */}
-                <section className="py-24 relative overflow-hidden" style={{ background: 'var(--color-bg-surface)' }}>
+                <section className="py-24 relative overflow-hidden" style={{ background: 'var(--color-page-surface)' }}>
                     <div className="container-custom">
                         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
 
@@ -121,7 +121,7 @@ const About = () => {
                 </section>
 
                 {/* Ecosystem Philosophy */}
-                <section className="py-24 relative overflow-hidden" style={{ background: 'var(--color-bg)' }}>
+                <section className="py-24 relative overflow-hidden" style={{ background: 'var(--color-page-bg)' }}>
                     <div className="container-custom">
                         <div className="max-w-4xl mx-auto text-center mb-16">
                             <span className="section-eyebrow" style={{ color: 'var(--color-primary)', background: 'rgba(0,102,255,0.06)', border: '1px solid rgba(0,102,255,0.12)' }}>
@@ -161,7 +161,7 @@ const About = () => {
                 </section>
 
                 {/* Leadership & Innovation */}
-                <section className="py-24 relative" style={{ background: 'var(--color-bg-surface)' }}>
+                <section className="py-24 relative" style={{ background: 'var(--color-page-surface)' }}>
                     <div className="container-custom">
                         <div className="grid lg:grid-cols-2 gap-16 items-center">
                             <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="order-2 lg:order-1 relative">
@@ -202,7 +202,7 @@ const About = () => {
                 </section>
 
                 {/* Global Collaboration Model */}
-                <section className="py-24 relative" style={{ background: 'var(--color-bg)' }}>
+                <section className="py-24 relative" style={{ background: 'var(--color-page-bg)' }}>
                     <div className="container-custom">
                         <div className="text-center max-w-4xl mx-auto mb-16">
                             <span className="section-eyebrow" style={{ color: 'var(--color-primary)', background: 'rgba(0,102,255,0.06)', border: '1px solid rgba(0,102,255,0.12)' }}>

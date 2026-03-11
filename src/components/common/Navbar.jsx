@@ -70,18 +70,12 @@ const Navbar = ({ onBookingOpen }) => {
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'py-2' : 'bg-transparent py-4'}`}
-      style={
-        isScrolled
-          ? {
-            background: 'rgba(255, 255, 255, 0.92)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            borderBottom: '1px solid rgba(0, 102, 255, 0.1)',
-            boxShadow: '0 4px 30px rgba(5, 24, 58, 0.05)',
-          }
-          : {}
-      }
+      className={`fixed w-full z-50 transition-all duration-300 py-2`}
+      style={{
+        background: '#ffffff',
+        borderBottom: '1px solid rgba(0, 102, 255, 0.1)',
+        boxShadow: '0 4px 30px rgba(5, 24, 58, 0.05)',
+      }}
     >
       <div className="container-custom">
         <div className="flex justify-between items-center">

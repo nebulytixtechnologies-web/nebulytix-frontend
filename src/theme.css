@@ -34,6 +34,10 @@
     /* Pristine White                     */
     --color-bg-surface: #f8fafc;
     /* Near-white surface                 */
+
+    /* ── Subpage Colorful Backgrounds ──────────────────────── */
+    --color-page-bg: linear-gradient(160deg, #f0f7ff 0%, #ffffff 100%);
+    --color-page-surface: linear-gradient(160deg, #e6f0fa 0%, #f4f8fc 100%);
     --color-bg-card: #ffffff;
     /* White cards                        */
     --color-bg-card-hover: #f1f5f9;

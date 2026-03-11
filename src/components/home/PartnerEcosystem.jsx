@@ -20,12 +20,7 @@ const PartnerEcosystem = () => {
         "Enterprise Systems"
     ];
 
-    const communityPartners = [
-        "Startups and emerging technology companies",
-        "Universities and academic institutions",
-        "Technology researchers and innovation labs",
-        "Global developer communities"
-    ];
+
 
     return (
         <section className="py-24 relative overflow-hidden" style={{ background: 'var(--color-bg-surface)' }}>
@@ -92,38 +87,7 @@ const PartnerEcosystem = () => {
                     </motion.div>
                 </div>
 
-                {/* Community & Innovation */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-center bg-gray-900 rounded-3xl p-10 lg:p-16 relative overflow-hidden"
-                >
-                    <div className="absolute inset-0 opacity-20"
-                        style={{ backgroundImage: 'radial-gradient(var(--color-accent) 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
 
-                    <div className="relative z-10">
-                        <span className="section-eyebrow" style={{ color: 'var(--color-accent)', background: 'rgba(0,200,255,0.1)', border: '1px solid rgba(0,200,255,0.2)' }}>
-                            Innovation
-                        </span>
-                        <h2 className="section-title text-white mt-3">Community & <span className="text-gradient" style={{ backgroundImage: 'linear-gradient(to right, var(--color-accent), #00e5ff)' }}>Innovation</span></h2>
-                        <p className="max-w-2xl mx-auto text-gray-300 mb-8 leading-relaxed">
-                            Innovation grows through collaboration. Nebulytix actively partners with:
-                        </p>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10 max-w-5xl mx-auto">
-                            {communityPartners.map((partner, idx) => (
-                                <div key={idx} className="bg-gray-800/50 backdrop-blur-md rounded-xl p-4 border border-gray-700/50 hover:bg-gray-800 transition-colors">
-                                    <p className="text-sm font-medium text-gray-200">{partner}</p>
-                                </div>
-                            ))}
-                        </div>
-
-                        <p className="text-sm md:text-base font-semibold text-white">
-                            Together, we build solutions that shape the future of intelligent digital ecosystems.
-                        </p>
-                    </div>
-                </motion.div>
 
             </div>
         </section>
